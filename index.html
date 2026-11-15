@@ -291,7 +291,42 @@ footer p {
         <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
     </div>
 </header>
+<!-- MERCHANT DASHBOARD -->
+<section id="merchantPanel" style="display:none;padding:20px;background:#f5f5f5;">
+  <h2>🏪 QuickBasket Merchant Dashboard</h2>
+  <p>Welcome to Seller Panel</p>
 
+  <hr>
+  <h3>Shop Registration</h3>
+  <input id="shopName" placeholder="Shop Name"><br><br>
+  <input id="ownerName" placeholder="Owner Name"><br><br>
+  <input id="shopPhone" placeholder="Mobile Number"><br><br>
+  <input id="shopAddress" placeholder="Shop Address"><br><br>
+  <button onclick="registerShop()">Register Shop</button>
+
+  <hr>
+  <h3>Add New Product</h3>
+  <input id="productName" placeholder="Product Name"><br><br>
+  <input id="productPrice" type="number" placeholder="Price"><br><br>
+
+  <select id="productCategory">
+    <option>Grocery</option>
+    <option>Fruits</option>
+    <option>Vegetables</option>
+    <option>Bakery</option>
+    <option>Dairy</option>
+  </select><br><br>
+
+  <input id="productStock" type="number" placeholder="Stock"><br><br>
+  <button onclick="addMerchantProduct()">Add Product</button>
+
+  <hr>
+  <h3>My Products</h3>
+  <div id="merchantProducts"></div>
+
+  <h3>My Orders</h3>
+  <div id="merchantOrders">No Orders Yet</div>
+</section>
 <section class="hero">
     <h1>Your Local Market, Now Online!</h1>
     <p>Everything you need, delivered from your local shops.</p>
