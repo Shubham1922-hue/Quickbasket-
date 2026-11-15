@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QuickBasket Delivery Partner</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #222;
+}
+
+header {
+    background: #087f5b;
+    color: white;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    background: #056448;
+    padding: 10px 14px;
+    border-radius: 7px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 18px;
+}
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+h2 {
+    margin-bottom: 18px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 14px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+button {
+    background: #087f5b;
+    color: white;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin: 5px 3px;
+}
+
+.reject {
+    background: #dc3545;
+}
+
+.status {
+    color: #087f5b;
+    font-weight: bold;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+.card h3 {
+    color: #087f5b;
+    margin-bottom: 10px;
+}
+
+.order {
+    border: 1px solid #ddd;
+    padding: 16px;
+    border-radius: 9px;
+    margin: 12px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🛵 QuickBasket Delivery</div>
+    <a href="index.html">Customer Website</a>
+</header>
+
+<div class="container">
+
+    <section class="panel">
+        <h2>Welcome Delivery Partner!</h2>
+        <p>Manage your deliveries and earnings.</p>
+    </section>
+
+    <!-- SUMMARY -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Deliveries</h3>
+            <h2 id="totalDeliveries">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>Total Earnings</h3>
+            <h2 id="totalEarnings">₹0</h2>
+        </div>
+
+        <div class="card">
+            <h3>Partner Status</h3>
+            <h2 id="partnerStatus">Not Registered</h2>
+        </div>
+
+    </div>
+
+    <!-- REGISTRATION -->
+
+    <section class="panel">
+
+        <h2>📝 Delivery Partner Registration</h2>
+
+        <label>Full Name</label>
+        <input id="partnerName" placeholder="Enter Your Name">
+
+        <label>Mobile Number</label>
+        <input id="partnerPhone" type="tel"
+        maxlength="10" placeholder="10 Digit Mobile Number">
+
+        <label>Vehicle Type</label>
+        <select id="vehicleType">
+            <option value="Bike">Bike</option>
+            <option value="Scooter">Scooter</option>
+            <option value="Cycle">Cycle</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <label>Vehicle Number</label>
+        <input id="vehicleNumber"
+        placeholder="Enter Vehicle Number">
+
+        <label>Current City</label>
+        <input id="partnerCity"
+        placeholder="Enter Your City">
+
+        <button onclick="registerPartner()">
+            Register as Delivery Partner
+        </button>
+
+        <p id="registrationMessage"></p>
+
+    </section>
+
+    <!-- AVAILABILITY -->
+
+    <section class="panel">
+
+        <h2>🟢 Work Availability</h2>
+
+        <p id="availabilityText">You are Offline</p>
+
+        <button onclick="toggleAvailability()"
+        id="availabilityButton">
+            Go Online
+        </button>
+
+    </section>
+
+    <!-- ORDERS -->
+
+    <section class="panel">
+
+        <h2>📦 Available Delivery Orders</h2>
+
+        <div id="availableOrders">
+            <p>No new orders available.</p>
+        </div>
+
+    </section>
+
+    <!-- ACTIVE DELIVERY -->
+
+    <section class="panel">
+
+        <h2>🚚 My Active Delivery</h2>
+
+        <div id="activeDelivery">
+            <p>No active delivery.</p>
+        </div>
+
+    </section>
+
+    <!-- HISTORY -->
+
+    <section class="panel">
+
+        <h2>📋 Delivery History</h2>
+
+        <div id="deliveryHistory">
+            <p>No delivery completed yet.</p>
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    © 2026 QuickBasket | Delivery Partner
+</footer>
+
+<script>
+
+let partner = JSON.parse(
+    localStorage.getItem("QBDeliveryPartner") || "null"
+);
+
+let online = localStorage.getItem("QBDeliveryOnline") === "true";
+
+let deliveries = JSON.parse(
+    localStorage.getItem("QBDeliveryHistory") || "[]"
+);
+
+let activeOrder = JSON.parse(
+    localStorage.getItem("QBActiveDelivery") || "null"
+);
+
+let demoOrder = JSON.parse(
+    localStorage.getItem("QBDemoDeliveryOrder") || "null"
+);
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        }[char];
+    });
+}
+
+function registerPartner() {
+
+    let name = document.getElementById("partnerName").value.trim();
+    let phone = document.getElementById("partnerPhone").value.trim();
+    let vehicle = document.getElementById("vehicleType").value;
+    let number = document.getElementById("vehicleNumber").value.trim();
+    let city = document.getElementById("partnerCity").value.trim();
+
+    if (!name || !/^[0-9]{10}$/.test(phone) ||
+        !number || !city) {
+        alert("Please enter all details correctly.");
+        return;
+    }
+
+    partner = {
+        name,
+        phone,
+        vehicle,
+        number,
+        city
+    };
+
+    localStorage.setItem(
+        "QBDeliveryPartner",
+        JSON.stringify(partner)
+    );
+
+    document.getElementById("registrationMessage").innerText =
+        "Registration Successful!";
+
+    updateDashboard();
+
+    alert("Delivery Partner Registered Successfully!");
+}
+
+function toggleAvailability() {
+
+    if (!partner) {
+        alert("Please register first.");
+        return;
+    }
+
+    online = !online;
+
+    localStorage.setItem(
+        "QBDeliveryOnline",
+        online
+    );
+
+    updateDashboard();
+    showOrders();
+}
+
+function showOrders() {
+
+    let box = document.getElementById("availableOrders");
+
+    if (!online) {
+        box.innerHTML = "<p>Go Online to receive delivery orders.</p>";
+        return;
+    }
+
+    if (activeOrder) {
+        box.innerHTML = "<p>You already have an active delivery.</p>";
+        return;
+    }
+
+    if (!demoOrder) {
+        box.innerHTML = "<p>No new orders available.</p>";
+        return;
+    }
+
+    box.innerHTML = `
+        <div class="order">
+            <h3>Demo Delivery Order</h3>
+            <p>Order ID: ${escapeHTML(demoOrder.id)}</p>
+            <p>Pickup: ${escapeHTML(demoOrder.pickup)}</p>
+            <p>Delivery: ${escapeHTML(demoOrder.address)}</p>
+            <p>Delivery Fee: ₹${Number(demoOrder.fee)}</p>
+
+            <button onclick="acceptOrder()">
+                Accept Order
+            </button>
+
+            <button class="reject" onclick="rejectOrder()">
+                Reject
+            </button>
+
+            <p><small>Sample order for testing only.</small></p>
+        </div>
+    `;
+}
+
+function acceptOrder() {
+
+    if (!online || !demoOrder || activeOrder) {
+        return;
+    }
+
+    activeOrder = {
+        ...demoOrder,
+        status: "Accepted"
+    };
+
+    demoOrder = null;
+
+    localStorage.setItem(
+        "QBActiveDelivery",
+        JSON.stringify(activeOrder)
+    );
+
+    localStorage.removeItem("QBDemoDeliveryOrder");
+
+    renderActiveDelivery();
+    showOrders();
+}
+
+function rejectOrder() {
+
+    if (!confirm("Reject this sample order?")) {
+        return;
+    }
+
+    demoOrder = null;
+
+    localStorage.removeItem("QBDemoDeliveryOrder");
+
+    showOrders();
+}
+
+function updateDeliveryStatus(status) {
+
+    if (!activeOrder) return;
+
+    activeOrder.status = status;
+
+    if (status === "Delivered") {
+
+        deliveries.push({
+            ...activeOrder,
+            completedAt: new Date().toLocaleString()
+        });
+
+        localStorage.setItem(
+            "QBDeliveryHistory",
+            JSON.stringify(deliveries)
+        );
+
+        activeOrder = null;
+
+        localStorage.removeItem("QBActiveDelivery");
+
+    } else {
+
+        localStorage.setItem(
+            "QBActiveDelivery",
+            JSON.stringify(activeOrder)
+        );
+    }
+
+    renderActiveDelivery();
+    showHistory();
+    updateDashboard();
+    showOrders();
+}
+
+function renderActiveDelivery() {
+
+    let box = document.getElementById("activeDelivery");
+
+    if (!activeOrder) {
+        box.innerHTML = "<p>No active delivery.</p>";
+        return;
+    }
+
+    let buttons = "";
+
+    if (activeOrder.status === "Accepted") {
+        buttons = `
+            <button onclick="updateDeliveryStatus('Picked Up')">
+                Mark Picked Up
+            </button>
+        `;
+    }
+
+    if (activeOrder.status === "Picked Up") {
+        buttons = `
+            <button onclick="updateDeliveryStatus('Delivered')">
+                Mark Delivered
+            </button>
+        `;
+    }
+
+    box.innerHTML = `
+        <div class="order">
+            <h3>Order ${escapeHTML(activeOrder.id)}</h3>
+            <p>Pickup: ${escapeHTML(activeOrder.pickup)}</p>
+            <p>Delivery: ${escapeHTML(activeOrder.address)}</p>
+            <p>Fee: ₹${Number(activeOrder.fee)}</p>
+            <p>Status: <span class="status">
+                ${escapeHTML(activeOrder.status)}
+            </span></p>
+            ${buttons}
+        </div>
+    `;
+}
+
+function showHistory() {
+
+    let box = document.getElementById("deliveryHistory");
+
+    if (deliveries.length === 0) {
+        box.innerHTML = "<p>No delivery completed yet.</p>";
+        return;
+    }
+
+    box.innerHTML = "";
+
+    deliveries.forEach(order => {
+
+        box.innerHTML += `
+            <div class="order">
+                <b>Order ${escapeHTML(order.id)}</b>
+                <p>Delivery: ${escapeHTML(order.address)}</p>
+                <p>Fee: ₹${Number(order.fee)}</p>
+                <p>Status: Delivered</p>
+                <small>${escapeHTML(order.completedAt)}</small>
+            </div>
+        `;
+    });
+}
+
+function updateDashboard() {
+
+    document.getElementById("totalDeliveries").innerText =
+        deliveries.length;
+
+    let earnings = deliveries.reduce(
+        (sum, order) => sum + Number(order.fee), 0
+    );
+
+    document.getElementById("totalEarnings").innerText =
+        "₹" + earnings;
+
+    document.getElementById("partnerStatus").innerText =
+        partner ? "Registered" : "Not Registered";
+
+    document.getElementById("availabilityText").innerText =
+        online ? "You are Online" : "You are Offline";
+
+    document.getElementById("availabilityButton").innerText =
+        online ? "Go Offline" : "Go Online";
+
+    if (partner) {
+        document.getElementById("partnerName").value = partner.name;
+        document.getElementById("partnerPhone").value = partner.phone;
+        document.getElementById("vehicleType").value = partner.vehicle;
+        document.getElementById("vehicleNumber").value = partner.number;
+        document.getElementById("partnerCity").value = partner.city;
+    }
+}
+
+function createDemoOrder() {
+
+    if (demoOrder || activeOrder) return;
+
+    demoOrder = {
+        id: "QB-DEMO-001",
+        pickup: "Sample QuickBasket Shop",
+        address: "Sample Customer Address",
+        fee: 30
+    };
+
+    localStorage.setItem(
+        "QBDemoDeliveryOrder",
+        JSON.stringify(demoOrder)
+    );
+
+    showOrders();
+}
+
+updateDashboard();
+renderActiveDelivery();
+showHistory();
+showOrders();
+
+</script>
+
+</body>
+</html>
