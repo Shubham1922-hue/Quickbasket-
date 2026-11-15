@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBasket - Merchant Dashboard</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f8;
+    color: #222;
+}
+
+header {
+    background: #087f5b;
+    color: white;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    background: #056448;
+    padding: 10px 15px;
+    border-radius: 7px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 15px;
+}
+
+.welcome {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #ddd;
+}
+
+.card h3 {
+    color: #087f5b;
+    margin-bottom: 10px;
+}
+
+.panel {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 18px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 14px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+button {
+    background: #087f5b;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #056448;
+}
+
+.delete {
+    background: #dc3545;
+}
+
+.edit {
+    background: #e69500;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 9px;
+    margin: 12px 0;
+}
+
+.product button {
+    margin: 8px 5px 0 0;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🏪 QuickBasket Merchant</div>
+    <a href="index.html">← Customer Website</a>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h2>Welcome to Merchant Dashboard!</h2>
+        <p>Manage your shop, products and orders from one place.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>My Products</h3>
+            <h2 id="totalProducts">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>My Orders</h3>
+            <h2 id="totalOrders">0</h2>
+        </div>
+
+        <div class="card">
+            <h3>Shop Status</h3>
+            <h2 id="shopStatus">Not Registered</h2>
+        </div>
+
+    </div>
+
+    <!-- SHOP REGISTRATION -->
+
+    <section class="panel" id="registration">
+
+        <h2>🏪 Shop Registration</h2>
+
+        <label>Shop Name</label>
+        <input id="shopName" placeholder="Enter Shop Name">
+
+        <label>Owner Name</label>
+        <input id="ownerName" placeholder="Enter Owner Name">
+
+        <label>Mobile Number</label>
+        <input id="shopPhone" type="tel" maxlength="10"
+        placeholder="10 Digit Mobile Number">
+
+        <label>Shop Address</label>
+        <textarea id="shopAddress"
+        placeholder="Enter Shop Address"></textarea>
+
+        <button onclick="registerShop()">Register Shop</button>
+
+        <p id="registrationMessage"></p>
+
+    </section>
+
+    <!-- ADD PRODUCT -->
+
+    <section class="panel">
+
+        <h2>➕ Add New Product</h2>
+
+        <label>Product Name</label>
+        <input id="productName" placeholder="Product Name">
+
+        <label>Product Price (₹)</label>
+        <input id="productPrice" type="number" min="0.01"
+        placeholder="Enter Price">
+
+        <label>Category</label>
+        <select id="productCategory">
+            <option value="Grocery">Grocery</option>
+            <option value="Fruits">Fruits</option>
+            <option value="Vegetables">Vegetables</option>
+            <option value="Bakery">Bakery</option>
+            <option value="Dairy">Dairy</option>
+        </select>
+
+        <label>Stock Quantity</label>
+        <input id="productStock" type="number" min="0"
+        placeholder="Available Stock">
+
+        <button onclick="addProduct()" id="saveProductButton">
+            Add Product
+        </button>
+
+        <button onclick="cancelEdit()" id="cancelEditButton"
+        class="hidden">Cancel Edit</button>
+
+    </section>
+
+    <!-- MY PRODUCTS -->
+
+    <section class="panel">
+
+        <h2>📦 My Products</h2>
+
+        <input id="productSearch"
+        placeholder="Search My Products..."
+        oninput="showProducts()">
+
+        <div id="productList"></div>
+
+    </section>
+
+    <!-- ORDERS -->
+
+    <section class="panel">
+
+        <h2>🛒 My Orders</h2>
+
+        <div id="orderList">
+            <p>No Orders Yet.</p>
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    © 2026 QuickBasket | Merchant Dashboard
+</footer>
+
+<script>
+
+let products = JSON.parse(
+    localStorage.getItem("QBMerchantProducts") || "[]"
+);
+
+let shop = JSON.parse(
+    localStorage.getItem("QBShop") || "null"
+);
+
+let editingIndex = -1;
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function(char) {
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        }[char];
+    });
+}
+
+function registerShop() {
+
+    let name = document.getElementById("shopName").value.trim();
+    let owner = document.getElementById("ownerName").value.trim();
+    let phone = document.getElementById("shopPhone").value.trim();
+    let address = document.getElementById("shopAddress").value.trim();
+
+    if (!name || !owner || !/^[0-9]{10}$/.test(phone) || !address) {
+        alert("Please enter all details correctly.");
+        return;
+    }
+
+    shop = { name, owner, phone, address };
+
+    localStorage.setItem("QBShop", JSON.stringify(shop));
+
+    document.getElementById("registrationMessage").innerText =
+        "Shop Registered Successfully!";
+
+    updateDashboard();
+
+    alert("Your shop has been registered!");
+}
+
+function addProduct() {
+
+    let name = document.getElementById("productName").value.trim();
+    let priceValue = document.getElementById("productPrice").value;
+    let stockValue = document.getElementById("productStock").value;
+
+    let price = Number(priceValue);
+    let stock = Number(stockValue);
+
+    let category = document.getElementById("productCategory").value;
+
+    if (!name || priceValue === "" || price <= 0 ||
+        stockValue === "" || stock < 0 ||
+        !Number.isInteger(stock)) {
+
+        alert("Please enter valid product details.");
+        return;
+    }
+
+    const product = { name, price, category, stock };
+
+    if (editingIndex >= 0) {
+        products[editingIndex] = product;
+        editingIndex = -1;
+    } else {
+        products.push(product);
+    }
+
+    localStorage.setItem(
+        "QBMerchantProducts",
+        JSON.stringify(products)
+    );
+
+    clearForm();
+    showProducts();
+    updateDashboard();
+
+    alert("Product Saved Successfully!");
+}
+
+function showProducts() {
+
+    let box = document.getElementById("productList");
+    let search = document.getElementById("productSearch")
+        .value.toLowerCase();
+
+    box.innerHTML = "";
+
+    let filtered = products
+        .map((p, i) => ({...p, originalIndex: i}))
+        .filter(p => p.name.toLowerCase().includes(search));
+
+    if (filtered.length === 0) {
+        box.innerHTML = "<p>No products found.</p>";
+    }
+
+    filtered.forEach(p => {
+
+        box.innerHTML += `
+        <div class="product">
+
+            <h3>${escapeHTML(p.name)}</h3>
+
+            <p>Category: ${escapeHTML(p.category)}</p>
+
+            <p>Price: ₹${Number(p.price).toFixed(2)}</p>
+
+            <p>Stock: ${Number(p.stock)}</p>
+
+            <button class="edit"
+            onclick="editProduct(${p.originalIndex})">
+            Edit
+            </button>
+
+            <button class="delete"
+            onclick="deleteProduct(${p.originalIndex})">
+            Delete
+            </button>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("totalProducts").innerText =
+        products.length;
+}
+
+function editProduct(index) {
+
+    let p = products[index];
+
+    document.getElementById("productName").value = p.name;
+    document.getElementById("productPrice").value = p.price;
+    document.getElementById("productCategory").value = p.category;
+    document.getElementById("productStock").value = p.stock;
+
+    editingIndex = index;
+
+    document.getElementById("saveProductButton").innerText =
+        "Update Product";
+
+    document.getElementById("cancelEditButton")
+        .classList.remove("hidden");
+
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+
+function cancelEdit() {
+    editingIndex = -1;
+    clearForm();
+}
+
+function deleteProduct(index) {
+
+    if (!confirm("Are you sure you want to delete this product?")) {
+        return;
+    }
+
+    products.splice(index, 1);
+
+    localStorage.setItem(
+        "QBMerchantProducts",
+        JSON.stringify(products)
+    );
+
+    showProducts();
+    updateDashboard();
+}
+
+function clearForm() {
+
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productStock").value = "";
+
+    document.getElementById("saveProductButton").innerText =
+        "Add Product";
+
+    document.getElementById("cancelEditButton")
+        .classList.add("hidden");
+}
+
+function updateDashboard() {
+
+    document.getElementById("totalProducts").innerText =
+        products.length;
+
+    document.getElementById("shopStatus").innerText =
+        shop ? "Registered" : "Not Registered";
+
+    document.getElementById("totalOrders").innerText = "0";
+
+    if (shop) {
+        document.getElementById("shopName").value = shop.name;
+        document.getElementById("ownerName").value = shop.owner;
+        document.getElementById("shopPhone").value = shop.phone;
+        document.getElementById("shopAddress").value = shop.address;
+    }
+}
+
+showProducts();
+updateDashboard();
+
+</script>
+
+</body>
+  </html>
