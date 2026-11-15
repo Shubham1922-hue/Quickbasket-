@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickBasket - Customer Dashboard</title>
+<title>QuickBasket | Customer Dashboard</title>
 
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
- margin:0;
  font-family:Arial,sans-serif;
  background:#f3f5f7;
  color:#222;
@@ -20,7 +19,7 @@ header{
  padding:25px 15px;
  text-align:center;
  color:white;
- border-radius:0 0 25px 25px;
+ border-radius:0 0 22px 22px;
  box-shadow:0 5px 15px #0002;
 }
 
@@ -38,26 +37,32 @@ header{
 
 .brand-name h1{
  font-size:32px;
- margin:5px 0;
  font-weight:900;
- letter-spacing:-1px;
+ margin:5px 0;
 }
 
 .brand-name h1 span{color:#b8ffcf}
 
 .brand-name p{
- margin:5px 0 12px;
  font-size:12px;
+ margin:5px 0 12px;
 }
 
 .dashboard-label{
+ display:inline-block;
+ background:#ffffff25;
+ padding:7px 16px;
+ border-radius:20px;
  font-size:11px;
  letter-spacing:2px;
  font-weight:bold;
- background:#ffffff25;
- display:inline-block;
- padding:7px 15px;
- border-radius:20px;
+}
+
+.header-buttons{
+ margin-top:15px;
+ display:flex;
+ justify-content:center;
+ gap:10px;
 }
 
 .container{
@@ -75,8 +80,8 @@ header{
 }
 
 h3{
- margin-top:0;
  color:#087c45;
+ margin-bottom:14px;
 }
 
 button{
@@ -92,14 +97,11 @@ button{
  color:white;
 }
 
-.danger{
- background:#dc3545;
- color:white;
-}
+.primary:hover{background:#055c32}
 
-.warning{
- background:#f0a500;
- color:white;
+.white-btn{
+ background:white;
+ color:#087c45;
 }
 
 input,select,textarea{
@@ -120,12 +122,7 @@ input,select,textarea{
 
 .hero h2{
  color:#075b36;
- margin-top:0;
-}
-
-.search-box{
- display:flex;
- gap:8px;
+ margin-bottom:10px;
 }
 
 .search-box input{margin:0}
@@ -187,6 +184,7 @@ input,select,textarea{
 .product p{
  color:#777;
  font-size:13px;
+ margin:7px 0;
 }
 
 .price{
@@ -196,9 +194,7 @@ input,select,textarea{
  margin:10px 0;
 }
 
-.product button{
- width:100%;
-}
+.product button{width:100%}
 
 .cart-item{
  display:flex;
@@ -230,7 +226,7 @@ input,select,textarea{
 
 .badge{
  display:inline-block;
- padding:5px 10px;
+ padding:6px 11px;
  border-radius:20px;
  background:#e7f5ec;
  color:#087c45;
@@ -238,9 +234,7 @@ input,select,textarea{
  font-weight:bold;
 }
 
-.full-btn{
- width:100%;
-}
+.full-btn{width:100%}
 
 .small-text{
  font-size:13px;
@@ -249,7 +243,7 @@ input,select,textarea{
 
 footer{
  text-align:center;
- padding:20px;
+ padding:22px;
  color:#777;
 }
 
@@ -274,8 +268,472 @@ footer{
  overflow:auto;
 }
 
-.modal-box h3{margin-top:0}
-
 .close{
  float:right;
- background:#eee
+ background:#eee;
+}
+
+.empty{
+ text-align:center;
+ color:#777;
+ padding:20px;
+}
+
+@media(max-width:450px){
+ .brand-name h1{font-size:28px}
+ .container{padding:10px}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .product{padding:9px}
+ .product-image{height:85px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+ <div class="brand-logo">🛒</div>
+
+ <div class="brand-name">
+  <h1>Quick<span>Basket</span></h1>
+  <p>Your Local Market, Now Online!</p>
+ </div>
+
+ <div class="dashboard-label">CUSTOMER DASHBOARD</div>
+
+ <div class="header-buttons">
+  <button class="white-btn" onclick="openLogin()">👤 Login</button>
+  <button class="white-btn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+ </div>
+
+</header>
+
+<main class="container">
+
+ <section class="card">
+  <h3>👋 Welcome to QuickBasket</h3>
+  <p>Shop from your favourite local stores.</p>
+
+  <br>
+  <label>🔍 Search Products</label>
+  <div class="search-box">
+   <input id="search" placeholder="Search products..." oninput="renderProducts()">
+  </div>
+
+  <label>📍 Select Your Location</label>
+  <select id="location">
+   <option value="">Select Location</option>
+   <option>Miraj</option>
+   <option>Sangli</option>
+   <option>Kolhapur</option>
+   <option>Pune</option>
+   <option>Mumbai</option>
+   <option>Other</option>
+  </select>
+ </section>
+
+ <section class="hero">
+  <h2>Everything You Need, Nearby!</h2>
+  <p>Grocery, Fruits, Vegetables, Bakery and Dairy Products.</p>
+  <br>
+  <span class="badge">SHOP LOCAL. SHOP SMART.</span>
+ </section>
+
+ <section class="card">
+  <h3>🛍️ Shop By Category</h3>
+
+  <div class="categories">
+
+   <div class="category active" onclick="filterCategory('All',this)">
+    <span>🛍️</span>All
+   </div>
+
+   <div class="category" onclick="filterCategory('Grocery',this)">
+    <span>🛒</span>Grocery
+   </div>
+
+   <div class="category" onclick="filterCategory('Fruits',this)">
+    <span>🍎</span>Fruits
+   </div>
+
+   <div class="category" onclick="filterCategory('Vegetables',this)">
+    <span>🥦</span>Vegetables
+   </div>
+
+   <div class="category" onclick="filterCategory('Bakery',this)">
+    <span>🍞</span>Bakery
+   </div>
+
+   <div class="category" onclick="filterCategory('Dairy',this)">
+    <span>🥛</span>Dairy
+   </div>
+
+  </div>
+ </section>
+
+ <section class="card">
+  <h3>🔥 Popular Products</h3>
+  <div class="products" id="productList"></div>
+ </section>
+
+ <section class="card" id="cartSection">
+  <h3>🛒 My Shopping Cart</h3>
+  <div id="cartItems"></div>
+  <div class="total" id="cartTotal">Total: ₹0</div>
+  <button class="primary full-btn" onclick="openCheckout()">
+   Proceed to Checkout
+  </button>
+ </section>
+
+ <section class="card">
+  <h3>👤 Customer Account</h3>
+  <p id="accountInfo" class="small-text">You are not logged in.</p>
+  <br>
+  <button class="primary" onclick="openLogin()">Login / Register</button>
+ </section>
+
+</main>
+
+<footer>
+ <h3>🛒 QuickBasket</h3>
+ <p>Your Local Market, Now Online!</p>
+ <p>Shop Local. Shop Smart.</p>
+ <p>© 2026 QuickBasket</p>
+</footer>
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+ <div class="modal-box">
+
+  <button class="close" onclick="closeModal('loginModal')">✕</button>
+
+  <h3>👤 Customer Login</h3>
+
+  <label>Mobile Number</label>
+  <input id="mobile" type="tel" maxlength="10" placeholder="Enter mobile number">
+
+  <button class="primary full-btn" onclick="login()">Continue</button>
+
+  <p class="small-text">Demo Login. Real OTP will be added later.</p>
+
+ </div>
+</div>
+
+<!-- CART MODAL -->
+
+<div class="modal" id="cartModal">
+ <div class="modal-box">
+
+  <button class="close" onclick="closeModal('cartModal')">✕</button>
+
+  <h3>🛒 Your Cart</h3>
+
+  <div id="modalCartItems"></div>
+
+  <div class="total" id="modalCartTotal">Total: ₹0</div>
+
+  <button class="primary full-btn" onclick="openCheckout()">
+   Proceed to Checkout
+  </button>
+
+ </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+
+<div class="modal" id="checkoutModal">
+ <div class="modal-box">
+
+  <button class="close" onclick="closeModal('checkoutModal')">✕</button>
+
+  <h3>📦 Checkout</h3>
+
+  <label>Customer Name</label>
+  <input id="customerName" placeholder="Your Name">
+
+  <label>Mobile Number</label>
+  <input id="customerMobile" type="tel" maxlength="10" placeholder="Mobile Number">
+
+  <label>Delivery Address</label>
+  <textarea id="customerAddress" rows="3" placeholder="Full Address"></textarea>
+
+  <label>Payment Method</label>
+  <select id="paymentMethod">
+   <option>Cash on Delivery</option>
+   <option>Online Payment - Coming Soon</option>
+  </select>
+
+  <button class="primary full-btn" onclick="placeOrder()">Place Order</button>
+
+ </div>
+</div>
+
+<script>
+
+const products=[
+{id:1,name:"Rice",category:"Grocery",price:60,unit:"1 Kg",emoji:"🍚"},
+{id:2,name:"Wheat Flour",category:"Grocery",price:45,unit:"1 Kg",emoji:"🌾"},
+{id:3,name:"Sugar",category:"Grocery",price:45,unit:"1 Kg",emoji:"🧂"},
+{id:4,name:"Cooking Oil",category:"Grocery",price:140,unit:"1 Litre",emoji:"🫗"},
+{id:5,name:"Toor Dal",category:"Grocery",price:130,unit:"1 Kg",emoji:"🫘"},
+{id:6,name:"Apple",category:"Fruits",price:120,unit:"1 Kg",emoji:"🍎"},
+{id:7,name:"Banana",category:"Fruits",price:50,unit:"Dozen",emoji:"🍌"},
+{id:8,name:"Orange",category:"Fruits",price:80,unit:"1 Kg",emoji:"🍊"},
+{id:9,name:"Grapes",category:"Fruits",price:90,unit:"1 Kg",emoji:"🍇"},
+{id:10,name:"Tomato",category:"Vegetables",price:30,unit:"1 Kg",emoji:"🍅"},
+{id:11,name:"Potato",category:"Vegetables",price:35,unit:"1 Kg",emoji:"🥔"},
+{id:12,name:"Onion",category:"Vegetables",price:40,unit:"1 Kg",emoji:"🧅"},
+{id:13,name:"Cauliflower",category:"Vegetables",price:40,unit:"1 Piece",emoji:"🥦"},
+{id:14,name:"Carrot",category:"Vegetables",price:50,unit:"1 Kg",emoji:"🥕"},
+{id:15,name:"Bread",category:"Bakery",price:40,unit:"1 Pack",emoji:"🍞"},
+{id:16,name:"Cake",category:"Bakery",price:150,unit:"1 Piece",emoji:"🎂"},
+{id:17,name:"Cookies",category:"Bakery",price:60,unit:"1 Pack",emoji:"🍪"},
+{id:18,name:"Milk",category:"Dairy",price:30,unit:"500 ml",emoji:"🥛"},
+{id:19,name:"Curd",category:"Dairy",price:40,unit:"500 g",emoji:"🥣"},
+{id:20,name:"Butter",category:"Dairy",price:60,unit:"100 g",emoji:"🧈"},
+{id:21,name:"Paneer",category:"Dairy",price:90,unit:"200 g",emoji:"🧀"}
+];
+
+let cart=JSON.parse(localStorage.getItem("QBCustomerCart")||"[]");
+let selectedCategory="All";
+
+function renderProducts(){
+
+ const search=document.getElementById("search").value.toLowerCase();
+
+ const filtered=products.filter(p=>
+  (selectedCategory==="All"||p.category===selectedCategory)&&
+  p.name.toLowerCase().includes(search)
+ );
+
+ const list=document.getElementById("productList");
+
+ if(!filtered.length){
+  list.innerHTML='<p class="empty">No products found.</p>';
+  return;
+ }
+
+ list.innerHTML=filtered.map(p=>`
+  <div class="product">
+   <div class="product-image">${p.emoji}</div>
+   <h4>${p.name}</h4>
+   <p>${p.category} • ${p.unit}</p>
+   <div class="price">₹${p.price}</div>
+   <button class="primary" onclick="addToCart(${p.id})">+ Add to Cart</button>
+  </div>
+ `).join("");
+
+}
+
+function filterCategory(category,element){
+
+ selectedCategory=category;
+
+ document.querySelectorAll(".category").forEach(c=>{
+  c.classList.remove("active");
+ });
+
+ element.classList.add("active");
+
+ renderProducts();
+
+}
+
+function saveCart(){
+
+ localStorage.setItem("QBCustomerCart",JSON.stringify(cart));
+
+ renderCart();
+
+}
+
+function addToCart(id){
+
+ const product=products.find(p=>p.id===id);
+
+ const existing=cart.find(p=>p.id===id);
+
+ if(existing){
+  existing.qty++;
+ }else{
+  cart.push({...product,qty:1});
+ }
+
+ saveCart();
+
+}
+
+function changeQty(id,change){
+
+ const item=cart.find(p=>p.id===id);
+
+ if(!item)return;
+
+ item.qty+=change;
+
+ if(item.qty<=0){
+  cart=cart.filter(p=>p.id!==id);
+ }
+
+ saveCart();
+
+}
+
+function cartHTML(){
+
+ if(!cart.length){
+  return '<p class="empty">Your cart is empty.</p>';
+ }
+
+ return cart.map(item=>`
+  <div class="cart-item">
+   <div>
+    <b>${item.emoji} ${item.name}</b>
+    <p class="small-text">₹${item.price} × ${item.qty}</p>
+   </div>
+   <div class="qty">
+    <button onclick="changeQty(${item.id},-1)">−</button>
+    ${item.qty}
+    <button onclick="changeQty(${item.id},1)">+</button>
+   </div>
+  </div>
+ `).join("");
+
+}
+
+function renderCart(){
+
+ document.getElementById("cartItems").innerHTML=cartHTML();
+
+ document.getElementById("modalCartItems").innerHTML=cartHTML();
+
+ const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+
+ document.getElementById("cartTotal").innerText="Total: ₹"+total;
+
+ document.getElementById("modalCartTotal").innerText="Total: ₹"+total;
+
+ document.getElementById("cartCount").innerText=
+ cart.reduce((sum,item)=>sum+item.qty,0);
+
+}
+
+function openLogin(){
+ document.getElementById("loginModal").style.display="flex";
+}
+
+function login(){
+
+ const mobile=document.getElementById("mobile").value.trim();
+
+ if(!/^[6-9][0-9]{9}$/.test(mobile)){
+  alert("Enter valid 10 digit mobile number.");
+  return;
+ }
+
+ localStorage.setItem("QBCustomerMobile",mobile);
+
+ document.getElementById("accountInfo").innerText="Logged in: "+mobile;
+
+ closeModal("loginModal");
+
+ alert("Demo Login Successful!");
+
+}
+
+function openCart(){
+
+ renderCart();
+
+ document.getElementById("cartModal").style.display="flex";
+
+}
+
+function openCheckout(){
+
+ if(!cart.length){
+  alert("Your cart is empty!");
+  return;
+ }
+
+ closeModal("cartModal");
+
+ document.getElementById("checkoutModal").style.display="flex";
+
+}
+
+function placeOrder(){
+
+ const name=document.getElementById("customerName").value.trim();
+
+ const mobile=document.getElementById("customerMobile").value.trim();
+
+ const address=document.getElementById("customerAddress").value.trim();
+
+ const location=document.getElementById("location").value;
+
+ if(!name||!address||!/^[6-9][0-9]{9}$/.test(mobile)){
+  alert("Please enter valid customer details.");
+  return;
+ }
+
+ if(!location){
+  alert("Please select your location.");
+  return;
+ }
+
+ const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+
+ const order={
+  orderId:"QB"+Date.now(),
+  customerName:name,
+  mobile:mobile,
+  address:address,
+  location:location,
+  items:cart,
+  total:total,
+  payment:document.getElementById("paymentMethod").value,
+  status:"Order Placed",
+  date:new Date().toLocaleString()
+ };
+
+ let orders=JSON.parse(localStorage.getItem("QBCustomerOrders")||"[]");
+
+ orders.push(order);
+
+ localStorage.setItem("QBCustomerOrders",JSON.stringify(orders));
+
+ alert(
+  "Thank you "+name+"!\n"+
+  "Demo Order Placed Successfully!\n"+
+  "Order ID: "+order.orderId+
+  "\nTotal: ₹"+total
+ );
+
+ cart=[];
+
+ saveCart();
+
+ closeModal("checkoutModal");
+
+}
+
+function closeModal(id){
+ document.getElementById(id).style.display="none";
+}
+
+const savedMobile=localStorage.getItem("QBCustomerMobile");
+
+if(savedMobile){
+ document.getElementById("accountInfo").innerText="Logged in: "+savedMobile;
+}
+
+renderProducts();
+renderCart();
+
+</script>
+
+</body>
+</html>
