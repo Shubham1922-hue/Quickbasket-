@@ -6,276 +6,335 @@
 <title>QuickBasket - Your Local Market</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
-body {
-    background: #f5f7f5;
-    color: #222;
+body{
+    background:#f5f8f5;
+    color:#222;
 }
 
-header {
-    background: #087b42;
-    color: white;
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
+header{
+    background:linear-gradient(120deg,#075b36,#0b9b59);
+    color:white;
+    padding:16px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    box-shadow:0 3px 12px #0002;
 }
 
-.logo {
-    font-size: 25px;
-    font-weight: bold;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-.header-buttons button {
-    border: none;
-    padding: 10px 14px;
-    border-radius: 7px;
-    cursor: pointer;
-    margin-left: 5px;
-    font-weight: bold;
+.logo-icon{
+    font-size:35px;
 }
 
-.hero {
-    background: linear-gradient(120deg, #087b42, #35b66c);
-    color: white;
-    padding: 35px 20px;
-    text-align: center;
+.logo h1{
+    font-size:25px;
 }
 
-.hero h1 {
-    font-size: 30px;
-    margin-bottom: 10px;
+.logo p{
+    font-size:12px;
+    opacity:.9;
 }
 
-.hero p {
-    font-size: 16px;
+.header-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
 }
 
-.search-box {
-    padding: 18px;
-    text-align: center;
+button{
+    cursor:pointer;
+    border:none;
+    border-radius:8px;
+    padding:11px 16px;
+    font-weight:bold;
 }
 
-.search-box input {
-    width: 95%;
-    max-width: 550px;
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 16px;
+.header-buttons button{
+    background:white;
+    color:#087844;
 }
 
-.location {
-    padding: 10px 16px;
-    text-align: center;
+.header-buttons button:hover{
+    background:#e7f8ed;
 }
 
-.location select {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+.hero{
+    margin:22px auto;
+    width:92%;
+    padding:35px 25px;
+    border-radius:18px;
+    color:white;
+    background:linear-gradient(120deg,#087b45,#16b96c);
 }
 
-.categories {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-    padding: 15px;
-    justify-content: center;
+.hero h2{
+    font-size:30px;
+    margin-bottom:12px;
 }
 
-.categories button {
-    border: none;
-    background: white;
-    padding: 12px 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    white-space: nowrap;
-    font-weight: bold;
+.hero p{
+    font-size:16px;
+    margin-bottom:20px;
 }
 
-.categories button.active,
-.categories button:hover {
-    background: #087b42;
-    color: white;
+.location{
+    margin-top:15px;
 }
 
-.section-title {
-    padding: 15px;
-    font-size: 22px;
+.location select{
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    width:220px;
+    max-width:100%;
 }
 
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
-    gap: 15px;
-    padding: 15px;
+.search-section{
+    width:92%;
+    margin:20px auto;
 }
 
-.product {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 2px 7px #ddd;
-    text-align: center;
+.search-section input{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
 }
 
-.product .emoji {
-    font-size: 45px;
-    margin-bottom: 10px;
+.section{
+    width:92%;
+    margin:25px auto;
 }
 
-.product h3 {
-    font-size: 16px;
-    margin-bottom: 7px;
+.section h2{
+    margin-bottom:18px;
+    color:#075b36;
 }
 
-.product p {
-    color: #087b42;
-    font-weight: bold;
-    margin: 8px;
+.categories{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding:5px 0 15px;
 }
 
-.product button {
-    background: #087b42;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    border-radius: 7px;
-    cursor: pointer;
+.category{
+    background:white;
+    padding:15px 20px;
+    border-radius:12px;
+    min-width:110px;
+    text-align:center;
+    box-shadow:0 2px 8px #0001;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.product button:hover {
-    background: #056333;
+.category:hover,
+.category.active{
+    background:#087b45;
+    color:white;
 }
 
-.cart-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #087b42;
-    color: white;
-    padding: 14px;
-    display: none;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
+.category span{
+    display:block;
+    font-size:28px;
+    margin-bottom:8px;
 }
 
-.cart-bar button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 7px;
-    font-weight: bold;
-    cursor: pointer;
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:18px;
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.6);
-    z-index: 20;
-    overflow-y: auto;
-    padding: 20px;
+.product{
+    background:white;
+    border-radius:13px;
+    padding:15px;
+    box-shadow:0 3px 12px #0001;
+    transition:.2s;
 }
 
-.modal-content {
-    background: white;
-    padding: 22px;
-    border-radius: 12px;
-    max-width: 450px;
-    margin: 30px auto;
+.product:hover{
+    transform:translateY(-4px);
 }
 
-.modal-content h2 {
-    margin-bottom: 15px;
+.product-image{
+    height:115px;
+    background:#eff8f1;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:55px;
+    margin-bottom:12px;
 }
 
-.modal-content input,
-.modal-content textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    font-size: 15px;
+.product h3{
+    font-size:16px;
+    margin-bottom:7px;
 }
 
-.modal-content button {
-    padding: 11px;
-    border: none;
-    border-radius: 7px;
-    cursor: pointer;
-    margin-top: 8px;
+.product p{
+    color:#777;
+    font-size:13px;
+    margin-bottom:9px;
 }
 
-.primary {
-    background: #087b42;
-    color: white;
-    width: 100%;
+.price{
+    color:#078344;
+    font-size:19px;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
-.close {
-    background: #ddd;
-    float: right;
+.add-btn{
+    width:100%;
+    background:#087b45;
+    color:white;
 }
 
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    gap: 8px;
+.add-btn:hover{
+    background:#055c32;
 }
 
-.qty button {
-    padding: 5px 9px;
-    background: #087b42;
-    color: white;
-    border: none;
-    border-radius: 4px;
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#777;
+    grid-column:1/-1;
 }
 
-footer {
-    background: #123b28;
-    color: white;
-    text-align: center;
-    padding: 30px 15px 90px;
-    margin-top: 25px;
+footer{
+    margin-top:40px;
+    padding:25px;
+    background:#075b36;
+    color:white;
+    text-align:center;
 }
 
-footer p {
-    margin: 8px;
+footer p{
+    margin:7px;
+    font-size:14px;
 }
 
-@media(max-width:600px) {
-    header {
-        justify-content: center;
-        text-align: center;
+/* MODALS */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:1000;
+    inset:0;
+    background:#0009;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:450px;
+    padding:25px;
+    border-radius:15px;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.modal-box h2{
+    color:#087b45;
+    margin-bottom:18px;
+}
+
+.close{
+    float:right;
+    background:#eee;
+    padding:7px 12px;
+}
+
+.modal-box input,
+.modal-box textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0 15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.primary-btn{
+    width:100%;
+    background:#087b45;
+    color:white;
+    margin-top:10px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+    align-items:center;
+}
+
+.qty button{
+    padding:6px 10px;
+    background:#e8f5ec;
+    color:#087b45;
+}
+
+.cart-total{
+    margin-top:18px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+@media(max-width:600px){
+    header{
+        justify-content:center;
+        text-align:center;
     }
 
-    .hero h1 {
-        font-size: 24px;
+    .logo{
+        justify-content:center;
     }
 
-    .categories {
-        justify-content: flex-start;
+    .header-buttons{
+        justify-content:center;
+        width:100%;
     }
 
-    .products {
-        grid-template-columns: repeat(2, 1fr);
+    .hero h2{
+        font-size:24px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:10px;
+    }
+
+    .product{
+        padding:10px;
+    }
+
+    .product-image{
+        height:90px;
+        font-size:42px;
     }
 }
 </style>
@@ -284,529 +343,554 @@ footer p {
 <body>
 
 <header>
-    <div class="logo">🛒 QuickBasket</div>
+
+    <div class="logo">
+        <div class="logo-icon">🛒</div>
+        <div>
+            <h1>QuickBasket</h1>
+            <p>Your Local Market, Now Online!</p>
+        </div>
+    </div>
 
     <div class="header-buttons">
-        <button onclick="openLogin()">Login</button>
-        <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
-        <button onclick="showMerchantPanel()">🏪 Merchant</button>
+        <button onclick="openLogin()">👤 Login</button>
+        <button onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
     </div>
+
 </header>
-<!-- MERCHANT DASHBOARD -->
-<section id="merchantPanel" style="display:none;padding:20px;background:#f5f5f5;">
-  <h2>🏪 QuickBasket Merchant Dashboard</h2>
-  <p>Welcome to Seller Panel</p>
 
-  <hr>
-  <h3>Shop Registration</h3>
-  <input id="shopName" placeholder="Shop Name"><br><br>
-  <input id="ownerName" placeholder="Owner Name"><br><br>
-  <input id="shopPhone" placeholder="Mobile Number"><br><br>
-  <input id="shopAddress" placeholder="Shop Address"><br><br>
-  <button onclick="registerShop()">Register Shop</button>
 
-  <hr>
-  <h3>Add New Product</h3>
-  <input id="productName" placeholder="Product Name"><br><br>
-  <input id="productPrice" type="number" placeholder="Price"><br><br>
-
-  <select id="productCategory">
-    <option>Grocery</option>
-    <option>Fruits</option>
-    <option>Vegetables</option>
-    <option>Bakery</option>
-    <option>Dairy</option>
-  </select><br><br>
-
-  <input id="productStock" type="number" placeholder="Stock"><br><br>
-  <button onclick="addMerchantProduct()">Add Product</button>
-
-  <hr>
-  <h3>My Products</h3>
-  <div id="merchantProducts"></div>
-
-  <h3>My Orders</h3>
-  <div id="merchantOrders">No Orders Yet</div>
-</section>
 <section class="hero">
-    <h1>Your Local Market, Now Online!</h1>
-    <p>Everything you need, delivered from your local shops.</p>
+
+    <h2>Your Daily Needs, Delivered!</h2>
+
+    <p>Shop from your favourite local stores.</p>
+
+    <button onclick="scrollToProducts()" style="background:white;color:#087b45">
+        Shop Now →
+    </button>
+
+    <div class="location">
+        <label>📍 Select Your Location</label><br><br>
+
+        <select id="location">
+            <option value="">Select Location</option>
+            <option>Miraj</option>
+            <option>Sangli</option>
+            <option>Kolhapur</option>
+            <option>Pune</option>
+            <option>Mumbai</option>
+            <option>Other</option>
+        </select>
+    </div>
+
 </section>
 
-<div class="location">
-    Deliver To:
-    <select id="city">
-        <option>Miraj</option>
-        <option>Sangli</option>
-        <option>Kolhapur</option>
-        <option>Pune</option>
-        <option>Mumbai</option>
-        <option>Other</option>
-    </select>
-</div>
 
-<div class="search-box">
+<section class="search-section">
     <input
         type="text"
         id="search"
-        placeholder="Search grocery, fruits, bakery, dairy..."
-        oninput="showProducts()">
-</div>
+        placeholder="🔍 Search products..."
+        oninput="showProducts()"
+    >
+</section>
 
-<div class="categories" id="categories">
-    <button class="active" onclick="filterCategory('All',this)">All</button>
-    <button onclick="filterCategory('Grocery',this)">Grocery</button>
-    <button onclick="filterCategory('Fruits',this)">Fruits</button>
-    <button onclick="filterCategory('Vegetables',this)">Vegetables</button>
-    <button onclick="filterCategory('Bakery',this)">Bakery</button>
-    <button onclick="filterCategory('Dairy',this)">Dairy</button>
-</div>
 
-<h2 class="section-title">Popular Products</h2>
+<section class="section">
 
-<div class="products" id="products"></div>
+    <h2>Shop By Category</h2>
 
-<div class="cart-bar" id="cartBar">
-    <span id="cartSummary">0 Items</span>
-    <button onclick="openCart()">View Cart</button>
-</div>
+    <div class="categories">
+
+        <div class="category active" onclick="filterCategory('All',this)">
+            <span>🛍️</span>All
+        </div>
+
+        <div class="category" onclick="filterCategory('Grocery',this)">
+            <span>🛒</span>Grocery
+        </div>
+
+        <div class="category" onclick="filterCategory('Fruits',this)">
+            <span>🍎</span>Fruits
+        </div>
+
+        <div class="category" onclick="filterCategory('Vegetables',this)">
+            <span>🥦</span>Vegetables
+        </div>
+
+        <div class="category" onclick="filterCategory('Bakery',this)">
+            <span>🍞</span>Bakery
+        </div>
+
+        <div class="category" onclick="filterCategory('Dairy',this)">
+            <span>🥛</span>Dairy
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="productsSection">
+
+    <h2>Popular Products</h2>
+
+    <div class="products" id="productList"></div>
+
+</section>
+
+
+<footer>
+    <h2>🛒 QuickBasket</h2>
+    <p>Your Local Market, Now Online!</p>
+    <p>Shop Local. Shop Smart.</p>
+    <p>© 2026 QuickBasket. All Rights Reserved.</p>
+</footer>
+
 
 <!-- LOGIN MODAL -->
 
 <div class="modal" id="loginModal">
-    <div class="modal-content">
-        <button class="close" onclick="closeModal('loginModal')">Close</button>
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('loginModal')">✕</button>
 
         <h2>Customer Login</h2>
 
-        <input type="text" id="customerName" placeholder="Your Name">
+        <label>Mobile Number</label>
+        <input type="tel" id="mobile" maxlength="10" placeholder="Enter 10 digit mobile number">
 
-        <input
-            type="tel"
-            id="customerPhone"
-            placeholder="10 Digit Mobile Number"
-            maxlength="10">
+        <button class="primary-btn" onclick="login()">Continue</button>
 
-        <button class="primary" onclick="loginCustomer()">Continue</button>
+        <p style="font-size:12px;color:#777;margin-top:12px">
+            Demo login only. Real OTP authentication will be added later.
+        </p>
 
-        <p id="loginMessage"></p>
     </div>
+
 </div>
+
 
 <!-- CART MODAL -->
 
 <div class="modal" id="cartModal">
-    <div class="modal-content">
 
-        <button class="close" onclick="closeModal('cartModal')">Close</button>
+    <div class="modal-box">
 
-        <h2>Your Shopping Cart</h2>
+        <button class="close" onclick="closeModal('cartModal')">✕</button>
+
+        <h2>🛒 Your Cart</h2>
 
         <div id="cartItems"></div>
 
-        <h3 id="cartTotal">Total: ₹0</h3>
+        <div class="cart-total" id="cartTotal">Total: ₹0</div>
 
-        <button class="primary" onclick="checkout()">Proceed to Checkout</button>
+        <button class="primary-btn" onclick="openCheckout()">
+            Proceed to Checkout
+        </button>
+
     </div>
+
 </div>
+
 
 <!-- CHECKOUT MODAL -->
 
 <div class="modal" id="checkoutModal">
-    <div class="modal-content">
 
-        <button class="close" onclick="closeModal('checkoutModal')">Close</button>
+    <div class="modal-box">
 
-        <h2>Delivery Details</h2>
+        <button class="close" onclick="closeModal('checkoutModal')">✕</button>
 
-        <input id="deliveryName" placeholder="Full Name">
+        <h2>Checkout</h2>
 
-        <input
-            id="deliveryPhone"
-            type="tel"
-            maxlength="10"
-            placeholder="Mobile Number">
+        <label>Customer Name</label>
+        <input type="text" id="customerName" placeholder="Enter your name">
 
-        <textarea
-            id="deliveryAddress"
-            rows="4"
-            placeholder="Full Delivery Address"></textarea>
+        <label>Mobile Number</label>
+        <input type="tel" id="customerMobile" maxlength="10" placeholder="Enter mobile number">
 
-        <button class="primary" onclick="placeOrder()">Place Order</button>
+        <label>Delivery Address</label>
+        <textarea id="customerAddress" rows="3" placeholder="Enter complete address"></textarea>
+
+        <label>Payment Method</label>
+
+        <select id="paymentMethod" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px">
+            <option>Cash on Delivery</option>
+            <option>Online Payment (Coming Soon)</option>
+        </select>
+
+        <button class="primary-btn" onclick="placeOrder()">
+            Place Order
+        </button>
+
     </div>
+
 </div>
 
-<footer>
-    <h2>QuickBasket</h2>
-    <p>Your Local Market, Now Online!</p>
-    <p>Grocery | Fruits | Vegetables | Bakery | Dairy</p>
-    <p>© 2026 QuickBasket. All Rights Reserved.</p>
-</footer>
 
 <script>
 
 const products = [
 
-    {id:1,name:"Toor Dal 1 kg",category:"Grocery",price:160,emoji:"🫘"},
-    {id:2,name:"Rice 1 kg",category:"Grocery",price:60,emoji:"🍚"},
-    {id:3,name:"Sugar 1 kg",category:"Grocery",price:45,emoji:""},
-    {id:4,name:"Wheat Flour 1 kg",category:"Grocery",price:40,emoji:"🌾"},
-    {id:5,name:"Cooking Oil 1 L",category:"Grocery",price:150,emoji:"🫗"},
+{id:1,name:"Rice",category:"Grocery",price:60,unit:"1 Kg",emoji:"🍚"},
+{id:2,name:"Wheat Flour",category:"Grocery",price:45,unit:"1 Kg",emoji:"🌾"},
+{id:3,name:"Sugar",category:"Grocery",price:45,unit:"1 Kg",emoji:"🧂"},
+{id:4,name:"Cooking Oil",category:"Grocery",price:140,unit:"1 Litre",emoji:"🫗"},
+{id:5,name:"Toor Dal",category:"Grocery",price:130,unit:"1 Kg",emoji:"🫘"},
 
-    {id:6,name:"Apple 1 kg",category:"Fruits",price:140,emoji:"🍎"},
-    {id:7,name:"Banana 1 Dozen",category:"Fruits",price:60,emoji:"🍌"},
-    {id:8,name:"Orange 1 kg",category:"Fruits",price:80,emoji:"🍊"},
-    {id:9,name:"Grapes 1 kg",category:"Fruits",price:90,emoji:"🍇"},
+{id:6,name:"Apple",category:"Fruits",price:120,unit:"1 Kg",emoji:"🍎"},
+{id:7,name:"Banana",category:"Fruits",price:50,unit:"Dozen",emoji:"🍌"},
+{id:8,name:"Orange",category:"Fruits",price:80,unit:"1 Kg",emoji:"🍊"},
+{id:9,name:"Grapes",category:"Fruits",price:90,unit:"1 Kg",emoji:"🍇"},
 
-    {id:10,name:"Tomato 1 kg",category:"Vegetables",price:35,emoji:"🍅"},
-    {id:11,name:"Potato 1 kg",category:"Vegetables",price:30,emoji:"🥔"},
-    {id:12,name:"Onion 1 kg",category:"Vegetables",price:40,emoji:"🧅"},
-    {id:13,name:"Carrot 1 kg",category:"Vegetables",price:50,emoji:"🥕"},
+{id:10,name:"Tomato",category:"Vegetables",price:30,unit:"1 Kg",emoji:"🍅"},
+{id:11,name:"Potato",category:"Vegetables",price:35,unit:"1 Kg",emoji:"🥔"},
+{id:12,name:"Onion",category:"Vegetables",price:40,unit:"1 Kg",emoji:"🧅"},
+{id:13,name:"Cauliflower",category:"Vegetables",price:40,unit:"1 Piece",emoji:"🥦"},
+{id:14,name:"Carrot",category:"Vegetables",price:50,unit:"1 Kg",emoji:"🥕"},
 
-    {id:14,name:"Bread",category:"Bakery",price:35,emoji:"🍞"},
-    {id:15,name:"Cake",category:"Bakery",price:120,emoji:"🍰"},
-    {id:16,name:"Cookies",category:"Bakery",price:50,emoji:"🍪"},
-    {id:17,name:"Pav",category:"Bakery",price:25,emoji:"🥖"},
+{id:15,name:"Bread",category:"Bakery",price:40,unit:"1 Pack",emoji:"🍞"},
+{id:16,name:"Cake",category:"Bakery",price:150,unit:"1 Piece",emoji:"🎂"},
+{id:17,name:"Cookies",category:"Bakery",price:60,unit:"1 Pack",emoji:"🍪"},
 
-    {id:18,name:"Milk 1 Litre",category:"Dairy",price:58,emoji:"🥛"},
-    {id:19,name:"Curd 500 g",category:"Dairy",price:40,emoji:"🥣"},
-    {id:20,name:"Butter 100 g",category:"Dairy",price:60,emoji:"🧈"},
-    {id:21,name:"Paneer 200 g",category:"Dairy",price:90,emoji:"🧀"}
+{id:18,name:"Milk",category:"Dairy",price:30,unit:"500 ml",emoji:"🥛"},
+{id:19,name:"Curd",category:"Dairy",price:40,unit:"500 g",emoji:"🥣"},
+{id:20,name:"Butter",category:"Dairy",price:60,unit:"100 g",emoji:"🧈"},
+{id:21,name:"Paneer",category:"Dairy",price:90,unit:"200 g",emoji:"🧀"}
 
 ];
 
+let cart = JSON.parse(localStorage.getItem("QBCustomerCart")) || [];
+
 let selectedCategory = "All";
-let cart = {};
-let customer = null;
 
-function showProducts() {
 
-    const container = document.getElementById("products");
+function showProducts(){
+
     const search = document.getElementById("search").value.toLowerCase();
+
+    const list = document.getElementById("productList");
 
     const filtered = products.filter(p => {
 
         const categoryMatch =
-            selectedCategory === "All" ||
-            p.category === selectedCategory;
+        selectedCategory === "All" ||
+        p.category === selectedCategory;
 
         const searchMatch =
-            p.name.toLowerCase().includes(search);
+        p.name.toLowerCase().includes(search);
 
         return categoryMatch && searchMatch;
+
     });
 
-    container.innerHTML = "";
+    list.innerHTML = "";
 
-    if(filtered.length === 0) {
-        container.innerHTML = "<p>No products found.</p>";
+    if(filtered.length === 0){
+
+        list.innerHTML = '<div class="empty">No products found.</div>';
+
         return;
     }
 
     filtered.forEach(p => {
 
-        const quantity = cart[p.id] || 0;
+        list.innerHTML += `
 
-        container.innerHTML += `
-            <div class="product">
+        <div class="product">
 
-                <div class="emoji">${p.emoji || "🛍️"}</div>
+            <div class="product-image">${p.emoji}</div>
 
-                <h3>${p.name}</h3>
+            <h3>${p.name}</h3>
 
-                <p>₹${p.price}</p>
+            <p>${p.category} • ${p.unit}</p>
 
-                <button onclick="addToCart(${p.id})">
-                    ${quantity > 0 ? "In Cart: " + quantity + " | Add More" : "Add to Cart"}
-                </button>
+            <div class="price">₹${p.price}</div>
 
-            </div>
+            <button class="add-btn" onclick="addToCart(${p.id})">
+                + Add to Cart
+            </button>
+
+        </div>
+
         `;
 
     });
 
 }
 
-function filterCategory(category,button) {
+
+function filterCategory(category,element){
 
     selectedCategory = category;
 
-    document.querySelectorAll(".categories button").forEach(b => {
-        b.classList.remove("active");
+    document.querySelectorAll(".category").forEach(c=>{
+        c.classList.remove("active");
     });
 
-    button.classList.add("active");
+    element.classList.add("active");
 
     showProducts();
-}
-
-function addToCart(id) {
-
-    cart[id] = (cart[id] || 0) + 1;
-
-    updateCart();
-
-    showProducts();
-}
-
-function updateCart() {
-
-    let count = 0;
-    let total = 0;
-
-    products.forEach(p => {
-
-        const quantity = cart[p.id] || 0;
-
-        count += quantity;
-        total += quantity * p.price;
-
-    });
-
-    document.getElementById("cartCount").innerText = count;
-
-    document.getElementById("cartSummary").innerText =
-        count + " Items | ₹" + total;
-
-    document.getElementById("cartBar").style.display =
-        count > 0 ? "flex" : "none";
 
 }
 
-function openCart() {
 
-    const container = document.getElementById("cartItems");
+function addToCart(id){
 
-    container.innerHTML = "";
+    const product = products.find(p=>p.id===id);
 
-    let total = 0;
+    const existing = cart.find(p=>p.id===id);
 
-    products.forEach(p => {
-
-        const quantity = cart[p.id] || 0;
-
-        if(quantity > 0) {
-
-            total += p.price * quantity;
-
-            container.innerHTML += `
-                <div class="cart-item">
-
-                    <span>${p.name}</span>
-
-                    <div class="qty">
-
-                        <button onclick="changeQty(${p.id},-1)">-</button>
-
-                        ${quantity}
-
-                        <button onclick="changeQty(${p.id},1)">+</button>
-
-                    </div>
-
-                    <b>₹${p.price * quantity}</b>
-
-                </div>
-            `;
-
-        }
-
-    });
-
-    document.getElementById("cartTotal").innerText =
-        "Total: ₹" + total;
-
-    document.getElementById("cartModal").style.display = "block";
-
-}
-
-function changeQty(id,change) {
-
-    cart[id] = (cart[id] || 0) + change;
-
-    if(cart[id] <= 0) {
-        delete cart[id];
+    if(existing){
+        existing.qty++;
+    }else{
+        cart.push({...product,qty:1});
     }
 
-    updateCart();
+    saveCart();
 
-    openCart();
-
-    showProducts();
-}
-
-function openLogin() {
-
-    document.getElementById("loginModal").style.display = "block";
+    alert(product.name+" added to cart!");
 
 }
 
-function loginCustomer() {
 
-    const name = document.getElementById("customerName").value.trim();
+function saveCart(){
 
-    const phone = document.getElementById("customerPhone").value.trim();
+    localStorage.setItem("QBCustomerCart",JSON.stringify(cart));
 
-    if(name === "" || !/^[0-9]{10}$/.test(phone)) {
+    updateCartCount();
 
-        document.getElementById("loginMessage").innerText =
-            "Please enter your name and valid 10 digit mobile number.";
+}
 
-        return;
+
+function updateCartCount(){
+
+    const count = cart.reduce((sum,item)=>sum+item.qty,0);
+
+    document.getElementById("cartCount").innerText=count;
+
+}
+
+
+function openCart(){
+
+    renderCart();
+
+    document.getElementById("cartModal").style.display="flex";
+
+}
+
+
+function renderCart(){
+
+    const box=document.getElementById("cartItems");
+
+    box.innerHTML="";
+
+    if(cart.length===0){
+
+        box.innerHTML='<p class="empty">Your cart is empty!</p>';
+
     }
 
-    customer = {name,phone};
+    cart.forEach(item=>{
 
-    document.getElementById("loginMessage").innerText =
-        "Demo login successful!";
+        box.innerHTML += `
 
-    setTimeout(() => closeModal("loginModal"),1000);
+        <div class="cart-item">
+
+            <div>
+                <strong>${item.emoji} ${item.name}</strong><br>
+                ₹${item.price} × ${item.qty}
+            </div>
+
+            <div class="qty">
+
+                <button onclick="changeQty(${item.id},-1)">−</button>
+
+                ${item.qty}
+
+                <button onclick="changeQty(${item.id},1)">+</button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+
+    document.getElementById("cartTotal").innerText="Total: ₹"+total;
 
 }
 
-function checkout() {
 
-    if(Object.keys(cart).length === 0) {
-        alert("Your cart is empty.");
+function changeQty(id,change){
+
+    const item=cart.find(p=>p.id===id);
+
+    if(!item)return;
+
+    item.qty+=change;
+
+    if(item.qty<=0){
+
+        cart=cart.filter(p=>p.id!==id);
+
+    }
+
+    saveCart();
+
+    renderCart();
+
+}
+
+
+function openLogin(){
+
+    document.getElementById("loginModal").style.display="flex";
+
+}
+
+
+function login(){
+
+    const mobile=document.getElementById("mobile").value;
+
+    if(!/^[6-9][0-9]{9}$/.test(mobile)){
+
+        alert("Please enter a valid 10 digit mobile number.");
+
         return;
+
+    }
+
+    localStorage.setItem("QBCustomerMobile",mobile);
+
+    alert("Demo Login Successful!");
+
+    closeModal("loginModal");
+
+}
+
+
+function openCheckout(){
+
+    if(cart.length===0){
+
+        alert("Your cart is empty!");
+
+        return;
+
     }
 
     closeModal("cartModal");
 
-    if(customer) {
-
-        document.getElementById("deliveryName").value = customer.name;
-
-        document.getElementById("deliveryPhone").value = customer.phone;
-
-    }
-
-    document.getElementById("checkoutModal").style.display = "block";
+    document.getElementById("checkoutModal").style.display="flex";
 
 }
 
-function placeOrder() {
 
-    const name = document.getElementById("deliveryName").value.trim();
+function placeOrder(){
 
-    const phone = document.getElementById("deliveryPhone").value.trim();
+    const name=document.getElementById("customerName").value.trim();
 
-    const address = document.getElementById("deliveryAddress").value.trim();
+    const mobile=document.getElementById("customerMobile").value.trim();
 
-    if(name === "" || !/^[0-9]{10}$/.test(phone) || address === "") {
+    const address=document.getElementById("customerAddress").value.trim();
 
-        alert("Please fill all delivery details correctly.");
+    const location=document.getElementById("location").value;
+
+    if(!name || !/^[6-9][0-9]{9}$/.test(mobile) || !address){
+
+        alert("Please enter valid customer details and address.");
 
         return;
+
     }
 
-    const orderNumber = "QB" + Date.now().toString().slice(-7);
+    if(!location){
+
+        alert("Please select your location.");
+
+        closeModal("checkoutModal");
+
+        return;
+
+    }
+
+    const total=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+
+    const order={
+
+        orderId:"QB"+Date.now(),
+
+        customerName:name,
+
+        mobile:mobile,
+
+        address:address,
+
+        location:location,
+
+        items:cart,
+
+        total:total,
+
+        payment:document.getElementById("paymentMethod").value,
+
+        status:"Order Placed",
+
+        date:new Date().toLocaleString()
+
+    };
 
     alert(
-        "Demo Order Successful!\n\nOrder ID: " + orderNumber +
-        "\nName: " + name +
-        "\nCity: " + document.getElementById("city").value +
-        "\n\nReal order placement will work after backend integration."
+
+        "Thank you "+name+"!\n\n"+
+
+        "Your demo order has been placed.\n"+
+
+        "Order ID: "+order.orderId+"\n"+
+
+        "Total: ₹"+total
+
     );
 
-    cart = {};
+    cart=[];
 
-    updateCart();
-
-    showProducts();
+    saveCart();
 
     closeModal("checkoutModal");
 
 }
 
-function closeModal(id) {
 
-    document.getElementById(id).style.display = "none";
+function closeModal(id){
+
+    document.getElementById(id).style.display="none";
 
 }
+
+
+function scrollToProducts(){
+
+    document.getElementById("productsSection").scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
 
 showProducts();
 
-updateCart();
-function showMerchantPanel() {
-    const panel = document.getElementById("merchantPanel");
+updateCartCount();
 
-    if (panel) {
-        panel.style.display = "block";
-        panel.scrollIntoView({ behavior: "smooth" });
-        showMerchantProducts();
-    }
-}
-    let merchantProducts = JSON.parse(
-    localStorage.getItem("QBMerchantProducts") || "[]"
-);
-
-function registerShop() {
-    let shop = document.getElementById("shopName").value;
-    let owner = document.getElementById("ownerName").value;
-    let phone = document.getElementById("shopPhone").value;
-    let address = document.getElementById("shopAddress").value;
-
-    if (!shop || !owner || !/^[0-9]{10}$/.test(phone) || !address) {
-        alert("Please fill all details correctly");
-        return;
-    }
-
-    localStorage.setItem("QBShop", JSON.stringify({
-        shop, owner, phone, address
-    }));
-
-    alert("Shop Registered Successfully!");
-}
-
-function addMerchantProduct() {
-    let name = document.getElementById("productName").value;
-    let price = Number(document.getElementById("productPrice").value);
-    let category = document.getElementById("productCategory").value;
-    let stock = Number(document.getElementById("productStock").value);
-
-    if (!name || price <= 0 || stock < 0 ||
-        document.getElementById("productPrice").value === "" ||
-        document.getElementById("productStock").value === "") {
-        alert("Enter valid product details");
-        return;
-    }
-
-    merchantProducts.push({name, price, category, stock});
-
-    localStorage.setItem(
-        "QBMerchantProducts",
-        JSON.stringify(merchantProducts)
-    );
-
-    showMerchantProducts();
-    alert("Product Added Successfully!");
-}
-
-function showMerchantProducts() {
-    let box = document.getElementById("merchantProducts");
-    box.innerHTML = "";
-
-    merchantProducts.forEach((p, i) => {
-        box.innerHTML += `
-            <div style="background:white;padding:12px;margin:10px;">
-                <b>${p.name}</b><br>
-                Category: ${p.category}<br>
-                Price: ₹${p.price}<br>
-                Stock: ${p.stock}<br>
-                <button onclick="deleteMerchantProduct(${i})">Delete</button>
-            </div>`;
-    });
-}
-
-function deleteMerchantProduct(index) {
-    merchantProducts.splice(index, 1);
-    localStorage.setItem(
-        "QBMerchantProducts",
-        JSON.stringify(merchantProducts)
-    );
-    showMerchantProducts();
-}
 </script>
 
 </body>
