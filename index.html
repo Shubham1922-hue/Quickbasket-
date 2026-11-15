@@ -994,28 +994,26 @@ function closeCheckout(){
 
 /* PLACE ORDER */
 
-function placeOrder(){
+async function placeOrder(){
 
  if(!cart.length){
-
   alert("Your cart is empty!");
-
   return;
+ }
 
+ if(!customer || !customer.uid){
+  alert("Please login before placing an order!");
+  openLogin();
+  return;
  }
 
  const name=document.getElementById("deliveryName").value.trim();
-
  const mobile=document.getElementById("deliveryMobile").value.trim();
-
  const address=document.getElementById("deliveryAddress").value.trim();
 
- if(!name||!/^\d{10}$/.test(mobile)||!address){
-
+ if(!name || !/^\d{10}$/.test(mobile) || !address){
   alert("Please enter valid name, 10 digit mobile number and address.");
-
   return;
-
  }
 
  const total=cart.reduce(
@@ -1023,45 +1021,47 @@ function placeOrder(){
  );
 
  const order={
-
   id:"QB"+Date.now(),
-
+  customerUid:customer.uid,
+  customerEmail:customer.email,
   name:name,
-
   mobile:mobile,
-
   address:address,
-
   items:[...cart],
-
   total:total,
-
   date:new Date().toLocaleString(),
-
   status:"Pending"
-
  };
 
- let orders=JSON.parse(
-  localStorage.getItem("QBCustomerOrders")||"[]"
- );
+ try{
 
- orders.push(order);
+  await db.collection("orders").doc(order.id).set(order);
 
- localStorage.setItem(
-  "QBCustomerOrders",
-  JSON.stringify(orders)
- );
+  let orders=JSON.parse(
+   localStorage.getItem("QBCustomerOrders")||"[]"
+  );
 
- cart=[];
+  orders.push(order);
 
- saveCart();
+  localStorage.setItem(
+   "QBCustomerOrders",
+   JSON.stringify(orders)
+  );
 
- closeCheckout();
+  cart=[];
+  saveCart();
+  closeCheckout();
 
- alert("Order placed successfully! Order ID: "+order.id);
+  alert("Order placed successfully! Order ID: "+order.id);
 
-}
+ }catch(error){
+
+  console.error("Order Error:",error);
+  alert("Order could not be saved. Please try again.");
+
+ }
+
+  }
 
 
 /* INITIAL LOAD */
