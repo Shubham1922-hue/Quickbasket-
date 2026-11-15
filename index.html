@@ -603,7 +603,11 @@ function addToCart(id){
  saveCart();
 
 }
-
+function saveCart(){
+ localStorage.setItem("QBCustomerCart",JSON.stringify(cart));
+ renderProducts();
+ renderCart();
+ }
 function changeQty(id,change){
 
  const item=cart.find(p=>p.id===id);
