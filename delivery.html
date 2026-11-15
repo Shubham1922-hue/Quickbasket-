@@ -4,7 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QuickBasket - Delivery Partner</title>
-.brand-header{
+
+<style>
+*{
+ box-sizing:border-box;
+}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f3f5f7;
+ color:#222;
+}
+
+header{
  background:linear-gradient(135deg,#064e35,#079653);
  padding:25px 15px;
  text-align:center;
@@ -12,6 +25,7 @@
  border-radius:0 0 25px 25px;
  box-shadow:0 5px 15px #0002;
 }
+
 .brand-logo{
  font-size:35px;
  background:white;
@@ -23,19 +37,23 @@
  justify-content:center;
  margin:0 auto 8px;
 }
+
 .brand-name h1{
  font-size:32px;
  margin:5px 0;
  font-weight:900;
  letter-spacing:-1px;
 }
+
 .brand-name h1 span{
  color:#b8ffcf;
 }
+
 .brand-name p{
  margin:5px 0 12px;
  font-size:12px;
 }
+
 .dashboard-label{
  font-size:11px;
  letter-spacing:2px;
@@ -45,26 +63,13 @@
  padding:7px 15px;
  border-radius:20px;
 }
-<style>
-*{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#f3f5f7;
- color:#222;
-}
-header{
- background:#087c45;
- color:white;
- padding:18px;
- text-align:center;
-}
-header h2{margin:0}
+
 .container{
  max-width:750px;
  margin:auto;
  padding:15px;
 }
+
 .card{
  background:white;
  padding:17px;
@@ -72,7 +77,12 @@ header h2{margin:0}
  margin-bottom:15px;
  box-shadow:0 2px 9px #0001;
 }
-h3{margin-top:0;color:#087c45}
+
+h3{
+ margin-top:0;
+ color:#087c45;
+}
+
 button{
  border:0;
  padding:12px 16px;
@@ -80,6 +90,7 @@ button{
  font-weight:bold;
  cursor:pointer;
 }
+
 .online-btn{
  width:100%;
  padding:17px;
@@ -87,7 +98,11 @@ button{
  color:white;
  background:#dc3545;
 }
-.online-btn.active{background:#159447}
+
+.online-btn.active{
+ background:#159447;
+}
+
 input,select{
  width:100%;
  padding:12px;
@@ -96,32 +111,48 @@ input,select{
  border-radius:7px;
  font-size:15px;
 }
-.primary{background:#087c45;color:white}
-.danger{background:#dc3545;color:white}
-.warning{background:#f0a500;color:white}
-.gray{background:#555;color:white}
+
+.primary{
+ background:#087c45;
+ color:white;
+}
+
+.danger{
+ background:#dc3545;
+ color:white;
+}
+
+.warning{
+ background:#f0a500;
+ color:white;
+}
+
 .row{
  display:grid;
  grid-template-columns:1fr 1fr;
  gap:10px;
 }
+
 .stat{
  background:#e8f7ee;
  padding:15px;
  border-radius:10px;
  text-align:center;
 }
+
 .stat b{
  display:block;
  font-size:23px;
  margin-top:7px;
 }
+
 .order{
  border:1px solid #ddd;
  border-radius:10px;
  padding:13px;
  margin:12px 0;
 }
+
 .badge{
  display:inline-block;
  padding:5px 9px;
@@ -131,105 +162,153 @@ input,select{
  font-size:12px;
  font-weight:bold;
 }
-.hidden{display:none}
-.small-text{font-size:13px;color:#666}
+
+.small-text{
+ font-size:13px;
+ color:#666;
+}
+
 footer{
  text-align:center;
  padding:20px;
  color:#777;
+}
+
+@media(max-width:450px){
+ .brand-name h1{
+  font-size:28px;
+ }
+ .container{
+  padding:10px;
+ }
 }
 </style>
 </head>
 
 <body>
 
-<header class="brand-header">
+<header>
  <div class="brand-logo">🛒</div>
+
  <div class="brand-name">
   <h1>Quick<span>Basket</span></h1>
   <p>Your Local Market, Now Online!</p>
  </div>
- <div class="dashboard-label">DELIVERY PARTNER</div>
+
+ <div class="dashboard-label">
+  DELIVERY PARTNER
+ </div>
 </header>
 
 <div class="container">
 
 <!-- ONLINE OFFLINE -->
+
 <div class="card">
- <button id="onlineBtn" class="online-btn" onclick="toggleOnline()">
+ <button id="onlineBtn"
+ class="online-btn"
+ onclick="toggleOnline()">
  🔴 GO ONLINE
  </button>
+
  <p id="onlineText" style="text-align:center">
  You are currently Offline
  </p>
 </div>
 
 <!-- PROFILE -->
+
 <div class="card">
- <h3>👤 Delivery Partner Registration</h3>
 
- <input id="partnerName" placeholder="Your Full Name">
- <input id="partnerMobile" placeholder="Mobile Number">
+<h3>👤 Delivery Partner Registration</h3>
 
- <label>Vehicle Type</label>
- <select id="vehicle">
-  <option value="Bike">🏍️ Bike</option>
-  <option value="Scooter">🛵 Scooter</option>
-  <option value="Auto Rickshaw">🛺 Auto Rickshaw</option>
- </select>
+<input id="partnerName"
+placeholder="Your Full Name">
 
- <input id="vehicleNumber" placeholder="Vehicle Number">
- <input id="city" placeholder="Your City">
+<input id="partnerMobile"
+placeholder="Mobile Number"
+type="tel">
 
- <button class="primary" onclick="saveProfile()">
+<label>Vehicle Type</label>
+
+<select id="vehicle">
+ <option value="Bike">🏍️ Bike</option>
+ <option value="Scooter">🛵 Scooter</option>
+ <option value="Auto Rickshaw">🛺 Auto Rickshaw</option>
+</select>
+
+<input id="vehicleNumber"
+placeholder="Vehicle Number">
+
+<input id="city"
+placeholder="Your City">
+
+<button class="primary" onclick="saveProfile()">
  Save Profile
- </button>
+</button>
 
- <p id="profileMessage" class="small-text"></p>
+<p id="profileMessage" class="small-text"></p>
+
 </div>
 
 <!-- EARNINGS -->
+
 <div class="card">
- <h3>💰 My Earnings</h3>
 
- <div class="row">
-  <div class="stat">
-   Today's Earnings
-   <b id="todayEarning">₹0</b>
-  </div>
+<h3>💰 My Earnings</h3>
 
-  <div class="stat">
-   Total Deliveries
-   <b id="totalDeliveries">0</b>
-  </div>
+<div class="row">
+
+ <div class="stat">
+  Today's Earnings
+  <b id="todayEarning">₹0</b>
  </div>
+
+ <div class="stat">
+  Total Deliveries
+  <b id="totalDeliveries">0</b>
+ </div>
+
+</div>
 </div>
 
 <!-- AVAILABLE ORDERS -->
+
 <div class="card">
- <h3>📦 Available Orders</h3>
 
- <p class="small-text">
+<h3>📦 Available Orders</h3>
+
+<p class="small-text">
  Online झाल्यानंतर उपलब्ध ऑर्डर Accept करा.
- </p>
+</p>
 
- <div id="availableOrders"></div>
+<div id="availableOrders"></div>
 
- <button class="warning" onclick="addDemoOrders()">
+<button class="warning"
+onclick="addDemoOrders()">
  + Add Demo Orders (Testing)
- </button>
+</button>
+
 </div>
 
 <!-- ACTIVE ORDERS -->
+
 <div class="card">
- <h3>🚚 My Active Deliveries</h3>
- <div id="activeOrders"></div>
+
+<h3>🚚 My Active Deliveries</h3>
+
+<div id="activeOrders"></div>
+
 </div>
 
 <!-- HISTORY -->
+
 <div class="card">
- <h3>📋 Delivery History</h3>
- <div id="history"></div>
+
+<h3>📋 Delivery History</h3>
+
+<div id="history"></div>
+
 </div>
 
 </div>
@@ -240,49 +319,96 @@ footer{
 
 <script>
 
-let profile = JSON.parse(localStorage.getItem("QBDeliveryPartner") || "null");
+let profile = JSON.parse(
+ localStorage.getItem("QBDeliveryPartner") || "null"
+);
 
-let online = localStorage.getItem("QBDeliveryOnline") === "true";
+let online =
+ localStorage.getItem("QBDeliveryOnline") === "true";
 
-let orders = JSON.parse(localStorage.getItem("QBOrders") || "[]");
+let orders = JSON.parse(
+ localStorage.getItem("QBOrders") || "[]"
+);
 
-let history = JSON.parse(localStorage.getItem("QBDeliveryHistory") || "[]");
+let history = JSON.parse(
+ localStorage.getItem("QBDeliveryHistory") || "[]"
+);
 
 function saveData(){
- localStorage.setItem("QBDeliveryPartner",JSON.stringify(profile));
- localStorage.setItem("QBDeliveryOnline",online);
- localStorage.setItem("QBOrders",JSON.stringify(orders));
- localStorage.setItem("QBDeliveryHistory",JSON.stringify(history));
+
+ localStorage.setItem(
+  "QBDeliveryPartner",
+  JSON.stringify(profile)
+ );
+
+ localStorage.setItem(
+  "QBDeliveryOnline",
+  online
+ );
+
+ localStorage.setItem(
+  "QBOrders",
+  JSON.stringify(orders)
+ );
+
+ localStorage.setItem(
+  "QBDeliveryHistory",
+  JSON.stringify(history)
+ );
+
 }
 
 function loadProfile(){
 
  if(profile){
-  document.getElementById("partnerName").value=profile.name || "";
-  document.getElementById("partnerMobile").value=profile.mobile || "";
-  document.getElementById("vehicle").value=profile.vehicle || "Bike";
-  document.getElementById("vehicleNumber").value=profile.vehicleNumber || "";
-  document.getElementById("city").value=profile.city || "";
+
+  document.getElementById("partnerName").value =
+   profile.name || "";
+
+  document.getElementById("partnerMobile").value =
+   profile.mobile || "";
+
+  document.getElementById("vehicle").value =
+   profile.vehicle || "Bike";
+
+  document.getElementById("vehicleNumber").value =
+   profile.vehicleNumber || "";
+
+  document.getElementById("city").value =
+   profile.city || "";
+
  }
 
  updateOnlineButton();
  renderAll();
+
 }
 
 function saveProfile(){
 
- let name=document.getElementById("partnerName").value.trim();
- let mobile=document.getElementById("partnerMobile").value.trim();
- let vehicle=document.getElementById("vehicle").value;
- let vehicleNumber=document.getElementById("vehicleNumber").value.trim();
- let city=document.getElementById("city").value.trim();
+ let name =
+  document.getElementById("partnerName").value.trim();
+
+ let mobile =
+  document.getElementById("partnerMobile").value.trim();
+
+ let vehicle =
+  document.getElementById("vehicle").value;
+
+ let vehicleNumber =
+  document.getElementById("vehicleNumber").value.trim();
+
+ let city =
+  document.getElementById("city").value.trim();
 
  if(!name || !mobile || !vehicleNumber || !city){
+
   alert("Please fill all details");
   return;
+
  }
 
- profile={
+ profile = {
   name,
   mobile,
   vehicle,
@@ -292,93 +418,121 @@ function saveProfile(){
 
  saveData();
 
- document.getElementById("profileMessage").innerText="✅ Profile Saved Successfully";
+ document.getElementById("profileMessage").innerText =
+  "✅ Profile Saved Successfully";
 
  renderAll();
+
 }
 
 function toggleOnline(){
 
  if(!profile){
+
   alert("Please register your profile first");
   return;
+
  }
 
- online=!online;
+ online = !online;
 
  saveData();
  updateOnlineButton();
  renderAll();
+
 }
 
 function updateOnlineButton(){
 
- let btn=document.getElementById("onlineBtn");
- let text=document.getElementById("onlineText");
+ let btn =
+  document.getElementById("onlineBtn");
+
+ let text =
+  document.getElementById("onlineText");
 
  if(online){
-  btn.innerText="🟢 YOU ARE ONLINE";
+
+  btn.innerText = "🟢 YOU ARE ONLINE";
   btn.classList.add("active");
-  text.innerText="You are available for deliveries";
+
+  text.innerText =
+   "You are available for deliveries";
+
  }else{
-  btn.innerText="🔴 GO ONLINE";
+
+  btn.innerText = "🔴 GO ONLINE";
   btn.classList.remove("active");
-  text.innerText="You are currently Offline";
+
+  text.innerText =
+   "You are currently Offline";
+
  }
+
 }
 
 // DEMO ORDERS
 
 function addDemoOrders(){
 
- let samples=[
-  {
-   id:"QB"+Date.now()+"1",
-   customer:"Demo Customer 1",
-   address:"Demo Address 1",
-   items:"Grocery Items",
-   size:"Small",
-   amount:30,
-   status:"Available"
-  },
-  {
-   id:"QB"+Date.now()+"2",
-   customer:"Demo Customer 2",
-   address:"Demo Address 2",
-   items:"Bakery and Dairy Products",
-   size:"Medium",
-   amount:50,
-   status:"Available"
-  },
-  {
-   id:"QB"+Date.now()+"3",
-   customer:"Demo Customer 3",
-   address:"Demo Address 3",
-   items:"Large Grocery Order",
-   size:"Large",
-   amount:80,
-   status:"Available"
-  }
+ let time = Date.now();
+
+ let samples = [
+
+ {
+  id:"QB"+time+"1",
+  customer:"Demo Customer 1",
+  address:"Demo Address 1",
+  items:"Grocery Items",
+  size:"Small",
+  amount:30,
+  status:"Available"
+ },
+
+ {
+  id:"QB"+time+"2",
+  customer:"Demo Customer 2",
+  address:"Demo Address 2",
+  items:"Bakery and Dairy Products",
+  size:"Medium",
+  amount:50,
+  status:"Available"
+ },
+
+ {
+  id:"QB"+time+"3",
+  customer:"Demo Customer 3",
+  address:"Demo Address 3",
+  items:"Large Grocery Order",
+  size:"Large",
+  amount:80,
+  status:"Available"
+ }
+
  ];
 
  orders.push(...samples);
+
  saveData();
  renderAll();
 
  alert("Demo Orders Added Successfully");
+
 }
 
-// VEHICLE ELIGIBILITY
+// VEHICLE RULE
 
 function canAccept(order){
 
  if(!profile) return false;
 
- if(order.size==="Large"){
-  return profile.vehicle==="Auto Rickshaw";
+ if(order.size === "Large"){
+
+  return profile.vehicle === "Auto Rickshaw";
+
  }
 
  return true;
+
 }
 
 // ACCEPT ORDER
@@ -386,63 +540,80 @@ function canAccept(order){
 function acceptOrder(id){
 
  if(!online){
+
   alert("Please GO ONLINE first");
   return;
+
  }
 
- let order=orders.find(o=>o.id===id);
+ let order =
+  orders.find(o => o.id === id);
 
  if(!order) return;
 
  if(!canAccept(order)){
-  alert("मोठी ऑर्डर घेण्यासाठी Auto Rickshaw आवश्यक आहे.");
+
+  alert(
+   "मोठी ऑर्डर घेण्यासाठी Auto Rickshaw आवश्यक आहे."
+  );
+
   return;
+
  }
 
- order.status="Accepted";
- order.partner=profile.name;
+ order.status = "Accepted";
+ order.partner = profile.name;
 
  saveData();
  renderAll();
+
 }
 
 // REJECT ORDER
 
 function rejectOrder(id){
 
- let order=orders.find(o=>o.id===id);
+ let order =
+  orders.find(o => o.id === id);
 
  if(!order) return;
 
- order.status="Rejected";
+ order.status = "Rejected";
+
  saveData();
  renderAll();
+
 }
 
 // PICKUP
 
 function pickupOrder(id){
 
- let order=orders.find(o=>o.id===id);
+ let order =
+  orders.find(o => o.id === id);
 
  if(!order) return;
 
- order.status="Picked Up";
+ order.status = "Picked Up";
 
  saveData();
  renderAll();
+
 }
 
 // DELIVERED
 
 function deliveredOrder(id){
 
- let order=orders.find(o=>o.id===id);
+ let order =
+  orders.find(o => o.id === id);
 
  if(!order) return;
 
- order.status="Delivered";
- order.date=new Date().toLocaleDateString("en-IN");
+ order.status = "Delivered";
+
+ order.date =
+  new Date().toLocaleDateString("en-IN");
 
  history.push(order);
 
@@ -450,127 +621,181 @@ function deliveredOrder(id){
  renderAll();
 
  alert("🎉 Order Delivered Successfully!");
+
 }
 
-// DISPLAY ORDERS
+// AVAILABLE ORDERS
 
 function renderAvailable(){
 
- let box=document.getElementById("availableOrders");
+ let box =
+  document.getElementById("availableOrders");
 
- let available=orders.filter(o=>o.status==="Available");
+ let available =
+  orders.filter(o => o.status === "Available");
 
  if(!available.length){
-  box.innerHTML="<p>No Available Orders</p>";
+
+  box.innerHTML = "<p>No Available Orders</p>";
   return;
+
  }
 
- box.innerHTML=available.map(o=>`
+ box.innerHTML = available.map(o => `
 
  <div class="order">
-  <span class="badge">${o.size} Order</span>
 
-  <h4>${o.customer}</h4>
+ <span class="badge">${o.size} Order</span>
 
-  <p>📦 ${o.items}</p>
-  <p>📍 ${o.address}</p>
-  <p>🚚 Delivery Earning: ₹${o.amount}</p>
+ <h4>${o.customer}</h4>
 
-  ${!canAccept(o) ?
-   '<p style="color:red">⚠️ Auto Rickshaw Required</p>' : ''}
+ <p>📦 ${o.items}</p>
 
-  <div class="row">
-   <button class="primary"
-    onclick="acceptOrder('${o.id}')">
-    Accept
-   </button>
+ <p>📍 ${o.address}</p>
 
-   <button class="danger"
-    onclick="rejectOrder('${o.id}')">
-    Reject
-   </button>
-  </div>
+ <p>🚚 Delivery Earning: ₹${o.amount}</p>
+
+ ${!canAccept(o) ?
+ '<p style="color:red">⚠️ Auto Rickshaw Required</p>'
+ : ''}
+
+ <div class="row">
+
+ <button class="primary"
+ onclick="acceptOrder('${o.id}')">
+ Accept
+ </button>
+
+ <button class="danger"
+ onclick="rejectOrder('${o.id}')">
+ Reject
+ </button>
+
+ </div>
+
  </div>
 
  `).join("");
+
 }
 
 // ACTIVE DELIVERIES
 
 function renderActive(){
 
- let box=document.getElementById("activeOrders");
+ let box =
+  document.getElementById("activeOrders");
 
- let active=orders.filter(o=>
-  o.status==="Accepted" || o.status==="Picked Up"
- );
+ let active =
+  orders.filter(o =>
+   o.partner === (profile && profile.name) &&
+   (o.status === "Accepted" ||
+    o.status === "Picked Up")
+  );
 
  if(!active.length){
-  box.innerHTML="<p>No Active Deliveries</p>";
+
+  box.innerHTML = "<p>No Active Deliveries</p>";
   return;
+
  }
 
- box.innerHTML=active.map(o=>`
+ box.innerHTML = active.map(o => `
 
  <div class="order">
-  <h4>${o.customer}</h4>
 
-  <p>📍 ${o.address}</p>
-  <p>📦 ${o.items}</p>
-  <p>Status: <b>${o.status}</b></p>
+ <h4>${o.customer}</h4>
 
-  ${o.status==="Accepted" ?
-   `<button class="warning" onclick="pickupOrder('${o.id}')">
-    Mark as Picked Up
-   </button>` : ''}
+ <p>📍 ${o.address}</p>
 
-  ${o.status==="Picked Up" ?
-   `<button class="primary" onclick="deliveredOrder('${o.id}')">
-    Mark as Delivered
-   </button>` : ''}
+ <p>📦 ${o.items}</p>
+
+ <p>Status: <b>${o.status}</b></p>
+
+ ${o.status === "Accepted" ?
+
+ `<button class="warning"
+ onclick="pickupOrder('${o.id}')">
+ Mark as Picked Up
+ </button>` : ''}
+
+ ${o.status === "Picked Up" ?
+
+ `<button class="primary"
+ onclick="deliveredOrder('${o.id}')">
+ Mark as Delivered
+ </button>` : ''}
 
  </div>
 
  `).join("");
+
 }
 
 // HISTORY
 
 function renderHistory(){
 
- let box=document.getElementById("history");
+ let box =
+  document.getElementById("history");
 
- if(!history.length){
-  box.innerHTML="<p>No Delivery History</p>";
+ let myHistory =
+  history.filter(o =>
+   o.partner === (profile && profile.name)
+  );
+
+ if(!myHistory.length){
+
+  box.innerHTML = "<p>No Delivery History</p>";
   return;
+
  }
 
- box.innerHTML=history.map(o=>`
+ box.innerHTML = myHistory.map(o => `
 
  <div class="order">
-  <b>${o.customer}</b>
-  <p>📦 ${o.items}</p>
-  <p>✅ Delivered</p>
-  <p>💰 ₹${o.amount}</p>
-  <p class="small-text">${o.date || ""}</p>
+
+ <b>${o.customer}</b>
+
+ <p>📦 ${o.items}</p>
+
+ <p>✅ Delivered</p>
+
+ <p>💰 ₹${o.amount}</p>
+
+ <p class="small-text">${o.date || ""}</p>
+
  </div>
 
  `).join("");
+
 }
 
 // EARNINGS
 
 function renderEarnings(){
 
- let today=new Date().toLocaleDateString("en-IN");
+ let today =
+  new Date().toLocaleDateString("en-IN");
 
- let todayTotal=history
- .filter(o=>o.date===today)
- .reduce((sum,o)=>sum+Number(o.amount),0);
+ let myHistory =
+  history.filter(o =>
+   o.partner === (profile && profile.name)
+  );
 
- document.getElementById("todayEarning").innerText="₹"+todayTotal;
+ let todayTotal =
+  myHistory
+   .filter(o => o.date === today)
+   .reduce((sum,o) =>
+    sum + Number(o.amount),0
+   );
 
- document.getElementById("totalDeliveries").innerText=history.length;
+ document.getElementById("todayEarning").innerText =
+  "₹"+todayTotal;
+
+ document.getElementById("totalDeliveries").innerText =
+  myHistory.length;
+
 }
 
 function renderAll(){
@@ -579,6 +804,7 @@ function renderAll(){
  renderActive();
  renderHistory();
  renderEarnings();
+
 }
 
 loadProfile();
