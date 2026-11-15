@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>QuickBasket | Admin Dashboard</title>
+
+<style>
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+body{
+ font-family:Arial,sans-serif;
+ background:#f3f5f7;
+ color:#222;
+}
+
+header{
+ background:linear-gradient(135deg,#064e35,#079653);
+ padding:25px 15px;
+ text-align:center;
+ color:white;
+ border-radius:0 0 22px 22px;
+ box-shadow:0 5px 15px #0002;
+}
+
+.brand-logo{
+ font-size:35px;
+ background:white;
+ width:65px;
+ height:65px;
+ border-radius:20px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ margin:0 auto 8px;
+}
+
+.brand-name h1{
+ font-size:32px;
+ font-weight:900;
+ margin:5px 0;
+}
+
+.brand-name h1 span{
+ color:#b8ffcf;
+}
+
+.brand-name p{
+ font-size:12px;
+ margin:5px 0 12px;
+}
+
+.dashboard-label{
+ display:inline-block;
+ background:#ffffff25;
+ padding:7px 16px;
+ border-radius:20px;
+ font-size:11px;
+ letter-spacing:2px;
+ font-weight:bold;
+}
+
+.container{
+ max-width:1100px;
+ margin:auto;
+ padding:15px;
+}
+
+.card{
+ background:white;
+ padding:17px;
+ border-radius:13px;
+ margin-bottom:15px;
+ box-shadow:0 2px 9px #0001;
+}
+
+h3{
+ color:#087c45;
+ margin-bottom:14px;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:12px;
+}
+
+.stat{
+ background:#e8f7ee;
+ padding:18px 10px;
+ border-radius:11px;
+ text-align:center;
+}
+
+.stat h2{
+ color:#087c45;
+ font-size:26px;
+ margin-top:9px;
+}
+
+.stat p{
+ font-size:13px;
+ color:#555;
+}
+
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ margin:7px 0 13px;
+ border:1px solid #ccc;
+ border-radius:7px;
+ font-size:15px;
+}
+
+button{
+ border:0;
+ padding:11px 14px;
+ border-radius:8px;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+.primary{
+ background:#087c45;
+ color:white;
+}
+
+.approve{
+ background:#087c45;
+ color:white;
+}
+
+.reject{
+ background:#dc3545;
+ color:white;
+}
+
+.badge{
+ display:inline-block;
+ padding:6px 11px;
+ border-radius:20px;
+ background:#e7f5ec;
+ color:#087c45;
+ font-size:12px;
+ font-weight:bold;
+}
+
+.item{
+ border:1px solid #eee;
+ border-radius:10px;
+ padding:13px;
+ margin:10px 0;
+}
+
+.item p{
+ font-size:14px;
+ color:#666;
+ margin:7px 0;
+}
+
+.item h4{
+ margin-bottom:8px;
+}
+
+.empty{
+ text-align:center;
+ color:#777;
+ padding:20px;
+}
+
+.full-btn{
+ width:100%;
+}
+
+.small-text{
+ font-size:13px;
+ color:#777;
+}
+
+footer{
+ text-align:center;
+ padding:22px;
+ color:#777;
+}
+
+@media(min-width:650px){
+ .stats{
+  grid-template-columns:repeat(4,1fr);
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+ <div class="brand-logo">🛒</div>
+
+ <div class="brand-name">
+  <h1>Quick<span>Basket</span></h1>
+  <p>Your Local Market, Now Online!</p>
+ </div>
+
+ <div class="dashboard-label">ADMIN DASHBOARD</div>
+
+</header>
+
+<main class="container">
+
+ <!-- OVERVIEW -->
+
+ <section class="card">
+
+  <h3>👋 Welcome, Admin!</h3>
+
+  <p>Manage your complete QuickBasket business from here.</p>
+
+  <br>
+
+  <span class="badge">ADMIN CONTROL PANEL</span>
+
+ </section>
+
+ <!-- STATISTICS -->
+
+ <section class="card">
+
+  <h3>📊 Business Overview</h3>
+
+  <div class="stats">
+
+   <div class="stat">
+    <p>👥 Customers</p>
+    <h2 id="customers">0</h2>
+   </div>
+
+   <div class="stat">
+    <p>🏪 Merchants</p>
+    <h2 id="merchants">0</h2>
+   </div>
+
+   <div class="stat">
+    <p>🛵 Delivery Partners</p>
+    <h2 id="partners">0</h2>
+   </div>
+
+   <div class="stat">
+    <p>📦 Orders</p>
+    <h2 id="orders">0</h2>
+   </div>
+
+   <div class="stat">
+    <p>🛍️ Products</p>
+    <h2 id="products">0</h2>
+   </div>
+
+   <div class="stat">
+    <p>💰 Total Sales</p>
+    <h2 id="sales">₹0</h2>
+   </div>
+
+   <div class="stat">
+    <p>⏳ Pending Orders</p>
+    <h2 id="pending">0</h2>
+   </div>
+
+   <div class="stat">
+    <p>📝 Complaints</p>
+    <h2 id="complaintCount">0</h2>
+   </div>
+
+  </div>
+
+  <br>
+
+  <button class="primary full-btn" onclick="refreshDashboard()">
+   🔄 Refresh Dashboard
+  </button>
+
+ </section>
+
+ <!-- ORDERS -->
+
+ <section class="card">
+
+  <h3>📦 All Customer Orders</h3>
+
+  <div id="orderList"></div>
+
+ </section>
+
+ <!-- PRODUCTS -->
+
+ <section class="card">
+
+  <h3>🛍️ Product Approval</h3>
+
+  <p class="small-text">
+   Review products added by merchants.
+  </p>
+
+  <div id="productList"></div>
+
+ </section>
+
+ <!-- MERCHANTS -->
+
+ <section class="card">
+
+  <h3>🏪 Merchant Management</h3>
+
+  <div id="merchantList"></div>
+
+ </section>
+
+ <!-- DELIVERY -->
+
+ <section class="card">
+
+  <h3>🛵 Delivery Partner Management</h3>
+
+  <div id="partnerList"></div>
+
+ </section>
+
+ <!-- COMMISSION -->
+
+ <section class="card">
+
+  <h3>💰 Commission Management</h3>
+
+  <label>Merchant Commission (%)</label>
+
+  <input type="number" id="commission"
+   min="0" max="100" placeholder="Enter Commission">
+
+  <button class="primary full-btn" onclick="saveCommission()">
+   Save Commission
+  </button>
+
+  <p class="small-text" id="commissionMessage"></p>
+
+ </section>
+
+ <!-- COMPLAINTS -->
+
+ <section class="card">
+
+  <h3>📝 Complaints Management</h3>
+
+  <label>Complaint Details</label>
+
+  <textarea id="complaintText" rows="3"
+   placeholder="Enter complaint details"></textarea>
+
+  <button class="primary full-btn" onclick="addComplaint()">
+   Add Complaint
+  </button>
+
+  <div id="complaintList"></div>
+
+ </section>
+
+ <!-- PAYMENTS -->
+
+ <section class="card">
+
+  <h3>💳 Payments & Payouts</h3>
+
+  <p class="small-text">
+   Payment gateway and merchant payout integration will be added
+   after backend development.
+  </p>
+
+  <br>
+
+  <span class="badge">Coming Soon</span>
+
+ </section>
+
+</main>
+
+<footer>
+ <h3>🛒 QuickBasket</h3>
+ <p>Your Local Market, Now Online!</p>
+ <p>© 2026 QuickBasket</p>
+</footer>
+
+<script>
+
+function getData(key,fallback){
+ try{
+  const data=localStorage.getItem(key);
+  return data?JSON.parse(data):fallback;
+ }catch(e){
+  return fallback;
+ }
+}
+
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,function(c){
+  return {
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#039;"
+  }[c];
+ });
+}
+
+function refreshDashboard(){
+
+ const orders=getData("QBCustomerOrders",[]);
+ const products=getData("QBMerchantProducts",[]);
+ const shop=getData("QBShop",null);
+ const partner=getData("QBDeliveryPartner",null);
+ const complaints=getData("QBComplaints",[]);
+
+ const mobile=getData("QBCustomerMobile",null);
+
+ document.getElementById("customers").innerText=
+ mobile?1:0;
+
+ document.getElementById("merchants").innerText=
+ shop?1:0;
+
+ document.getElementById("partners").innerText=
+ partner?1:0;
+
+ document.getElementById("orders").innerText=
+ orders.length;
+
+ document.getElementById("products").innerText=
+ products.length;
+
+ const totalSales=orders.reduce(
+  (sum,o)=>sum+Number(o.total||0),0
+ );
+
+ document.getElementById("sales").innerText=
+ "₹"+totalSales.toFixed(0);
+
+ document.getElementById("pending").innerText=
+ orders.filter(o=>o.status==="Order Placed").length;
+
+ document.getElementById("complaintCount").innerText=
+ complaints.length;
+
+ showOrders();
+ showProducts();
+ showMerchant();
+ showPartner();
+ showComplaints();
+
+}
+
+function showOrders(){
+
+ const orders=getData("QBCustomerOrders",[]);
+
+ const box=document.getElementById("orderList");
+
+ if(!orders.length){
+  box.innerHTML='<p class="empty">No Orders Available.</p>';
+  return;
+ }
+
+ box.innerHTML=orders.map((o,i)=>`
+
+  <div class="item">
+
+   <h4>📦 ${escapeHTML(o.orderId)}</h4>
+
+   <p>Customer: ${escapeHTML(o.customerName)}</p>
+
+   <p>Mobile: ${escapeHTML(o.mobile)}</p>
+
+   <p>Location: ${escapeHTML(o.location)}</p>
+
+   <p>Address: ${escapeHTML(o.address)}</p>
+
+   <p>Total: ₹${Number(o.total||0)}</p>
+
+   <p>Date: ${escapeHTML(o.date)}</p>
+
+   <p>Status: <b>${escapeHTML(o.status)}</b></p>
+
+   <select onchange="updateOrder(${i},this.value)">
+    <option value="">Update Order Status</option>
+    <option>Order Placed</option>
+    <option>Accepted</option>
+    <option>Packed</option>
+    <option>Out for Delivery</option>
+    <option>Delivered</option>
+    <option>Cancelled</option>
+   </select>
+
+  </div>
+
+ `).join("");
+
+}
+
+function updateOrder(index,status){
+
+ if(!status)return;
+
+ const orders=getData("QBCustomerOrders",[]);
+
+ orders[index].status=status;
+
+ localStorage.setItem(
+  "QBCustomerOrders",
+  JSON.stringify(orders)
+ );
+
+ refreshDashboard();
+
+}
+
+function showProducts(){
+
+ const products=getData("QBMerchantProducts",[]);
+
+ const box=document.getElementById("productList");
+
+ if(!products.length){
+  box.innerHTML='<p class="empty">No Products Available.</p>';
+  return;
+ }
+
+ box.innerHTML=products.map((p,i)=>`
+
+  <div class="item">
+
+   <h4>🛍️ ${escapeHTML(p.name)}</h4>
+
+   <p>Category: ${escapeHTML(p.category)}</p>
+
+   <p>Price: ₹${Number(p.price||0)}</p>
+
+   <p>Stock: ${Number(p.stock||0)}</p>
+
+   <p>
+    Approval:
+    <b>${p.approved===true?"Approved":"Pending"}</b>
+   </p>
+
+   <button class="approve" onclick="approveProduct(${i})">
+    ✓ Approve
+   </button>
+
+   <button class="reject" onclick="rejectProduct(${i})">
+    ✕ Reject
+   </button>
+
+  </div>
+
+ `).join("");
+
+}
+
+function approveProduct(index){
+
+ const products=getData("QBMerchantProducts",[]);
+
+ products[index].approved=true;
+
+ localStorage.setItem(
+  "QBMerchantProducts",
+  JSON.stringify(products)
+ );
+
+ refreshDashboard();
+
+ alert("Product Approved!");
+
+}
+
+function rejectProduct(index){
+
+ const products=getData("QBMerchantProducts",[]);
+
+ products[index].approved=false;
+
+ localStorage.setItem(
+  "QBMerchantProducts",
+  JSON.stringify(products)
+ );
+
+ refreshDashboard();
+
+ alert("Product Rejected!");
+
+}
+
+function showMerchant(){
+
+ const shop=getData("QBShop",null);
+
+ const box=document.getElementById("merchantList");
+
+ if(!shop){
+  box.innerHTML='<p class="empty">No Merchants Registered.</p>';
+  return;
+ }
+
+ box.innerHTML=`
+
+  <div class="item">
+
+   <h4>🏪 ${escapeHTML(shop.name)}</h4>
+
+   <p>Owner: ${escapeHTML(shop.owner)}</p>
+
+   <p>Mobile: ${escapeHTML(shop.phone)}</p>
+
+   <p>Address: ${escapeHTML(shop.address)}</p>
+
+   <span class="badge">Registered</span>
+
+  </div>
+
+ `;
+
+}
+
+function showPartner(){
+
+ const partner=getData("QBDeliveryPartner",null);
+
+ const box=document.getElementById("partnerList");
+
+ if(!partner){
+  box.innerHTML='<p class="empty">No Delivery Partners Registered.</p>';
+  return;
+ }
+
+ if(Array.isArray(partner)){
+  if(!partner.length){
+   box.innerHTML='<p class="empty">No Delivery Partners.</p>';
+   return;
+  }
+
+  box.innerHTML=partner.map(p=>`
+   <div class="item">
+    <h4>🛵 ${escapeHTML(p.name||"Delivery Partner")}</h4>
+    <p>Mobile: ${escapeHTML(p.mobile||"")}</p>
+    <p>Vehicle: ${escapeHTML(p.vehicle||"")}</p>
+   </div>
+  `).join("");
+
+ }else{
+
+  box.innerHTML=`
+   <div class="item">
+    <h4>🛵 ${escapeHTML(partner.name||"Delivery Partner")}</h4>
+    <p>Mobile: ${escapeHTML(partner.mobile||"")}</p>
+    <p>Vehicle: ${escapeHTML(partner.vehicle||"")}</p>
+    <span class="badge">Registered</span>
+   </div>
+  `;
+
+ }
+
+}
+
+function saveCommission(){
+
+ const value=Number(
+  document.getElementById("commission").value
+ );
+
+ if(!Number.isFinite(value)||value<0||value>100){
+  alert("Enter commission between 0 and 100.");
+  return;
+ }
+
+ localStorage.setItem(
+  "QBCommission",
+  JSON.stringify(value)
+ );
+
+ document.getElementById("commissionMessage").innerText=
+ "Commission saved: "+value+"%";
+
+ alert("Commission Saved!");
+
+}
+
+function addComplaint(){
+
+ const text=document.getElementById("complaintText")
+ .value.trim();
+
+ if(!text){
+  alert("Enter complaint details.");
+  return;
+ }
+
+ const complaints=getData("QBComplaints",[]);
+
+ complaints.push({
+  id:Date.now(),
+  text:text,
+  status:"Open",
+  date:new Date().toLocaleString()
+ });
+
+ localStorage.setItem(
+  "QBComplaints",
+  JSON.stringify(complaints)
+ );
+
+ document.getElementById("complaintText").value="";
+
+ refreshDashboard();
+
+}
+
+function showComplaints(){
+
+ const complaints=getData("QBComplaints",[]);
+
+ const box=document.getElementById("complaintList");
+
+ if(!complaints.length){
+  box.innerHTML='<p class="empty">No Complaints.</p>';
+  return;
+ }
+
+ box.innerHTML=complaints.map((c,i)=>`
+
+  <div class="item">
+
+   <p>${escapeHTML(c.text)}</p>
+
+   <p>Date: ${escapeHTML(c.date)}</p>
+
+   <p>Status: ${escapeHTML(c.status)}</p>
+
+   <button class="approve" onclick="resolveComplaint(${i})">
+    Mark Resolved
+   </button>
+
+  </div>
+
+ `).join("");
+
+}
+
+function resolveComplaint(index){
+
+ const complaints=getData("QBComplaints",[]);
+
+ complaints[index].status="Resolved";
+
+ localStorage.setItem(
+  "QBComplaints",
+  JSON.stringify(complaints)
+ );
+
+ refreshDashboard();
+
+}
+
+const savedCommission=getData("QBCommission",null);
+
+if(savedCommission!==null){
+ document.getElementById("commission").value=savedCommission;
+}
+
+refreshDashboard();
+
+</script>
+
+</body>
+</html>
