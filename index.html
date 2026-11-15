@@ -1,181 +1,282 @@
-8ß<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickBasket - Local Shopping</title>
+<title>QuickBasket - Your Local Market</title>
 
 <style>
 * {
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f8f5;
-  color: #222;
+    background: #f5f7f5;
+    color: #222;
 }
 
 header {
-  background: #087f45;
-  color: white;
-  padding: 20px;
-  text-align: center;
+    background: #087b42;
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 30px;
+.logo {
+    font-size: 25px;
+    font-weight: bold;
 }
 
-header p {
-  margin-bottom: 0;
+.header-buttons button {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
 }
 
-.top {
-  padding: 15px;
-  text-align: center;
+.hero {
+    background: linear-gradient(120deg, #087b42, #35b66c);
+    color: white;
+    padding: 35px 20px;
+    text-align: center;
 }
 
-input {
-  width: 90%;
-  padding: 13px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
+.hero h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
-.cartbtn {
-  background: #ff9f1c;
-  color: white;
-  border: none;
-  padding: 13px 22px;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 12px;
+.hero p {
+    font-size: 16px;
+}
+
+.search-box {
+    padding: 18px;
+    text-align: center;
+}
+
+.search-box input {
+    width: 95%;
+    max-width: 550px;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.location {
+    padding: 10px 16px;
+    text-align: center;
+}
+
+.location select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
 .categories {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 12px;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 15px;
+    justify-content: center;
 }
 
 .categories button {
-  border: none;
-  background: white;
-  padding: 12px 17px;
-  border-radius: 20px;
-  white-space: nowrap;
+    border: none;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: bold;
 }
 
-.categories button.active {
-  background: #087f45;
-  color: white;
+.categories button.active,
+.categories button:hover {
+    background: #087b42;
+    color: white;
 }
 
-h2 {
-  padding-left: 15px;
+.section-title {
+    padding: 15px;
+    font-size: 22px;
 }
 
 .products {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 15px;
+    padding: 15px;
 }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 2px 7px #ddd;
+.product {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 7px #ddd;
+    text-align: center;
 }
 
-.emoji {
-  font-size: 42px;
+.product .emoji {
+    font-size: 45px;
+    margin-bottom: 10px;
 }
 
-.card h3 {
-  font-size: 16px;
+.product h3 {
+    font-size: 16px;
+    margin-bottom: 7px;
 }
 
-.price {
-  color: #087f45;
-  font-weight: bold;
+.product p {
+    color: #087b42;
+    font-weight: bold;
+    margin: 8px;
 }
 
-.add {
-  background: #087f45;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  width: 100%;
-  margin-top: 8px;
+.product button {
+    background: #087b42;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 7px;
+    cursor: pointer;
 }
 
-.quantity {
-  color: #087f45;
-  font-weight: bold;
-  margin-top: 8px;
+.product button:hover {
+    background: #056333;
 }
 
-#cartBox {
-  background: white;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px #ccc;
+.cart-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #087b42;
+    color: white;
+    padding: 14px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
 }
 
-#cartBox[hidden] {
-  display: none;
+.cart-bar button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.cartrow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding: 12px 0;
-  gap: 8px;
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 20;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    max-width: 450px;
+    margin: 30px auto;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+.modal-content button {
+    padding: 11px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.primary {
+    background: #087b42;
+    color: white;
+    width: 100%;
+}
+
+.close {
+    background: #ddd;
+    float: right;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    gap: 8px;
 }
 
 .qty button {
-  background: #087f45;
-  color: white;
-  border: none;
-  padding: 7px 12px;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.total {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.checkout {
-  background: #ff9f1c;
-  color: white;
-  padding: 13px;
-  border: none;
-  border-radius: 8px;
-  width: 100%;
-  font-size: 17px;
+    padding: 5px 9px;
+    background: #087b42;
+    color: white;
+    border: none;
+    border-radius: 4px;
 }
 
 footer {
-  background: #087f45;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 25px;
+    background: #123b28;
+    color: white;
+    text-align: center;
+    padding: 30px 15px 90px;
+    margin-top: 25px;
+}
+
+footer p {
+    margin: 8px;
+}
+
+@media(max-width:600px) {
+    header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .categories {
+        justify-content: flex-start;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 </style>
 </head>
@@ -183,277 +284,415 @@ footer {
 <body>
 
 <header>
-<h1>🛒 QuickBasket</h1>
-<p>Your Local Market, Now Online!</p>
+    <div class="logo">🛒 QuickBasket</div>
 
-<select id="citySelect" onchange="chooseCity()">
-<option value="">Select Your City</option>
-<option value="Miraj">Miraj</option>
-<option value="Sangli">Sangli</option>
-<option value="Kolhapur">Kolhapur</option>
-<option value="Pune">Pune</option>
-<option value="Mumbai">Mumbai</option>
-</select>
-
-<p id="selectedCity"></p>
+    <div class="header-buttons">
+        <button onclick="openLogin()">Login</button>
+        <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
+    </div>
 </header>
 
-<div class="top">
-<input
-type="text"
-id="search"
-placeholder="Search products..."
-oninput="showProducts()">
-
-<br>
-
-<button class="cartbtn" onclick="toggleCart()">
-🛒 My Cart (<span id="cartCount">0</span>)
-</button>
-</div>
-
-<div class="categories">
-<button class="active" onclick="filterCategory('All',this)">All</button>
-<button onclick="filterCategory('Grocery',this)">Grocery</button>
-<button onclick="filterCategory('Fruits',this)">Fruits</button>
-<button onclick="filterCategory('Vegetables',this)">Vegetables</button>
-<button onclick="filterCategory('Bakery',this)">Bakery</button>
-<button onclick="filterCategory('Dairy',this)">Dairy</button>
-</div>
-
-<h2>🛍️ Our Products</h2>
-
-<div class="products" id="productList"></div>
-
-<section id="cartBox" hidden>
-
-<h2>🛒 Your Shopping Cart</h2>
-
-<div id="cartItems"></div>
-
-<p class="total">
-Total: ₹<span id="total">0</span>
-</p>
-
-<button class="checkout" onclick="placeOrder()">
-Place Order
-</button>
-
-<br><br>
-
-<button class="add" onclick="toggleCart()">
-Continue Shopping
-</button>
-
+<section class="hero">
+    <h1>Your Local Market, Now Online!</h1>
+    <p>Everything you need, delivered from your local shops.</p>
 </section>
 
+<div class="location">
+    Deliver To:
+    <select id="city">
+        <option>Miraj</option>
+        <option>Sangli</option>
+        <option>Kolhapur</option>
+        <option>Pune</option>
+        <option>Mumbai</option>
+        <option>Other</option>
+    </select>
+</div>
+
+<div class="search-box">
+    <input
+        type="text"
+        id="search"
+        placeholder="Search grocery, fruits, bakery, dairy..."
+        oninput="showProducts()">
+</div>
+
+<div class="categories" id="categories">
+    <button class="active" onclick="filterCategory('All',this)">All</button>
+    <button onclick="filterCategory('Grocery',this)">Grocery</button>
+    <button onclick="filterCategory('Fruits',this)">Fruits</button>
+    <button onclick="filterCategory('Vegetables',this)">Vegetables</button>
+    <button onclick="filterCategory('Bakery',this)">Bakery</button>
+    <button onclick="filterCategory('Dairy',this)">Dairy</button>
+</div>
+
+<h2 class="section-title">Popular Products</h2>
+
+<div class="products" id="products"></div>
+
+<div class="cart-bar" id="cartBar">
+    <span id="cartSummary">0 Items</span>
+    <button onclick="openCart()">View Cart</button>
+</div>
+
+<!-- LOGIN MODAL -->
+
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('loginModal')">Close</button>
+
+        <h2>Customer Login</h2>
+
+        <input type="text" id="customerName" placeholder="Your Name">
+
+        <input
+            type="tel"
+            id="customerPhone"
+            placeholder="10 Digit Mobile Number"
+            maxlength="10">
+
+        <button class="primary" onclick="loginCustomer()">Continue</button>
+
+        <p id="loginMessage"></p>
+    </div>
+</div>
+
+<!-- CART MODAL -->
+
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal('cartModal')">Close</button>
+
+        <h2>Your Shopping Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <h3 id="cartTotal">Total: ₹0</h3>
+
+        <button class="primary" onclick="checkout()">Proceed to Checkout</button>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+
+<div class="modal" id="checkoutModal">
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal('checkoutModal')">Close</button>
+
+        <h2>Delivery Details</h2>
+
+        <input id="deliveryName" placeholder="Full Name">
+
+        <input
+            id="deliveryPhone"
+            type="tel"
+            maxlength="10"
+            placeholder="Mobile Number">
+
+        <textarea
+            id="deliveryAddress"
+            rows="4"
+            placeholder="Full Delivery Address"></textarea>
+
+        <button class="primary" onclick="placeOrder()">Place Order</button>
+    </div>
+</div>
+
 <footer>
-<h2 style="color:white">QuickBasket 💚</h2>
-<p>Your Local Market, Now Online!</p>
-<p>Miraj & Sangli</p>
+    <h2>QuickBasket</h2>
+    <p>Your Local Market, Now Online!</p>
+    <p>Grocery | Fruits | Vegetables | Bakery | Dairy</p>
+    <p>© 2026 QuickBasket. All Rights Reserved.</p>
 </footer>
 
 <script>
 
-const items = [
+const products = [
 
-{name:"Rice",price:60,emoji:"🍚",category:"Grocery"},
-{name:"Wheat Flour",price:40,emoji:"🌾",category:"Grocery"},
-{name:"Cooking Oil",price:150,emoji:"🛢️",category:"Grocery"},
-{name:"Sugar",price:45,emoji:"🍬",category:"Grocery"},
+    {id:1,name:"Toor Dal 1 kg",category:"Grocery",price:160,emoji:"🫘"},
+    {id:2,name:"Rice 1 kg",category:"Grocery",price:60,emoji:"🍚"},
+    {id:3,name:"Sugar 1 kg",category:"Grocery",price:45,emoji:""},
+    {id:4,name:"Wheat Flour 1 kg",category:"Grocery",price:40,emoji:"🌾"},
+    {id:5,name:"Cooking Oil 1 L",category:"Grocery",price:150,emoji:"🫗"},
 
-{name:"Apple",price:120,emoji:"🍎",category:"Fruits"},
-{name:"Banana",price:50,emoji:"🍌",category:"Fruits"},
-{name:"Grapes",price:80,emoji:"🍇",category:"Fruits"},
-{name:"Orange",price:70,emoji:"🍊",category:"Fruits"},
+    {id:6,name:"Apple 1 kg",category:"Fruits",price:140,emoji:"🍎"},
+    {id:7,name:"Banana 1 Dozen",category:"Fruits",price:60,emoji:"🍌"},
+    {id:8,name:"Orange 1 kg",category:"Fruits",price:80,emoji:"🍊"},
+    {id:9,name:"Grapes 1 kg",category:"Fruits",price:90,emoji:"🍇"},
 
-{name:"Tomato",price:30,emoji:"🍅",category:"Vegetables"},
-{name:"Potato",price:25,emoji:"🥔",category:"Vegetables"},
-{name:"Onion",price:35,emoji:"🧅",category:"Vegetables"},
-{name:"Carrot",price:40,emoji:"🥕",category:"Vegetables"},
+    {id:10,name:"Tomato 1 kg",category:"Vegetables",price:35,emoji:"🍅"},
+    {id:11,name:"Potato 1 kg",category:"Vegetables",price:30,emoji:"🥔"},
+    {id:12,name:"Onion 1 kg",category:"Vegetables",price:40,emoji:"🧅"},
+    {id:13,name:"Carrot 1 kg",category:"Vegetables",price:50,emoji:"🥕"},
 
-{name:"Bread",price:35,emoji:"🍞",category:"Bakery"},
-{name:"Pav",price:30,emoji:"🥖",category:"Bakery"},
-{name:"Cake",price:100,emoji:"🎂",category:"Bakery"},
-{name:"Biscuits",price:20,emoji:"🍪",category:"Bakery"},
+    {id:14,name:"Bread",category:"Bakery",price:35,emoji:"🍞"},
+    {id:15,name:"Cake",category:"Bakery",price:120,emoji:"🍰"},
+    {id:16,name:"Cookies",category:"Bakery",price:50,emoji:"🍪"},
+    {id:17,name:"Pav",category:"Bakery",price:25,emoji:"🥖"},
 
-{name:"Milk",price:30,emoji:"🥛",category:"Dairy"},
-{name:"Curd",price:40,emoji:"🥣",category:"Dairy"},
-{name:"Paneer",price:90,emoji:"🧀",category:"Dairy"},
-{name:"Butter",price:55,emoji:"🧈",category:"Dairy"}
+    {id:18,name:"Milk 1 Litre",category:"Dairy",price:58,emoji:"🥛"},
+    {id:19,name:"Curd 500 g",category:"Dairy",price:40,emoji:"🥣"},
+    {id:20,name:"Butter 100 g",category:"Dairy",price:60,emoji:"🧈"},
+    {id:21,name:"Paneer 200 g",category:"Dairy",price:90,emoji:"🧀"}
 
 ];
 
+let selectedCategory = "All";
 let cart = {};
-let currentCategory = "All";
+let customer = null;
 
-function showProducts(){
+function showProducts() {
 
-let search = document.getElementById("search").value.toLowerCase();
+    const container = document.getElementById("products");
+    const search = document.getElementById("search").value.toLowerCase();
 
-let html = "";
+    const filtered = products.filter(p => {
 
-items.forEach((p,index)=>{
+        const categoryMatch =
+            selectedCategory === "All" ||
+            p.category === selectedCategory;
 
-if(currentCategory !== "All" && p.category !== currentCategory) return;
+        const searchMatch =
+            p.name.toLowerCase().includes(search);
 
-if(!p.name.toLowerCase().includes(search)) return;
+        return categoryMatch && searchMatch;
+    });
 
-let qty = cart[index] || 0;
+    container.innerHTML = "";
 
-html += `
-<div class="card">
+    if(filtered.length === 0) {
+        container.innerHTML = "<p>No products found.</p>";
+        return;
+    }
 
-<div class="emoji">${p.emoji}</div>
+    filtered.forEach(p => {
 
-<h3>${p.name}</h3>
+        const quantity = cart[p.id] || 0;
 
-<p class="price">₹${p.price}</p>
+        container.innerHTML += `
+            <div class="product">
 
-<p>${p.category}</p>
+                <div class="emoji">${p.emoji || "🛍️"}</div>
 
-<button class="add" onclick="addCart(${index})">
-Add to Cart
-</button>
+                <h3>${p.name}</h3>
 
-<div class="quantity">
-In Cart: ${qty}
-</div>
+                <p>₹${p.price}</p>
 
-</div>
-`;
+                <button onclick="addToCart(${p.id})">
+                    ${quantity > 0 ? "In Cart: " + quantity + " | Add More" : "Add to Cart"}
+                </button>
 
-});
+            </div>
+        `;
 
-document.getElementById("productList").innerHTML =
-html || "<p>No products found.</p>";
+    });
 
 }
 
-function filterCategory(category,button){
+function filterCategory(category,button) {
 
-currentCategory = category;
+    selectedCategory = category;
 
-document.querySelectorAll(".categories button").forEach(btn=>{
-btn.classList.remove("active");
-});
+    document.querySelectorAll(".categories button").forEach(b => {
+        b.classList.remove("active");
+    });
 
-button.classList.add("active");
+    button.classList.add("active");
+
+    showProducts();
+}
+
+function addToCart(id) {
+
+    cart[id] = (cart[id] || 0) + 1;
+
+    updateCart();
+
+    showProducts();
+}
+
+function updateCart() {
+
+    let count = 0;
+    let total = 0;
+
+    products.forEach(p => {
+
+        const quantity = cart[p.id] || 0;
+
+        count += quantity;
+        total += quantity * p.price;
+
+    });
+
+    document.getElementById("cartCount").innerText = count;
+
+    document.getElementById("cartSummary").innerText =
+        count + " Items | ₹" + total;
+
+    document.getElementById("cartBar").style.display =
+        count > 0 ? "flex" : "none";
+
+}
+
+function openCart() {
+
+    const container = document.getElementById("cartItems");
+
+    container.innerHTML = "";
+
+    let total = 0;
+
+    products.forEach(p => {
+
+        const quantity = cart[p.id] || 0;
+
+        if(quantity > 0) {
+
+            total += p.price * quantity;
+
+            container.innerHTML += `
+                <div class="cart-item">
+
+                    <span>${p.name}</span>
+
+                    <div class="qty">
+
+                        <button onclick="changeQty(${p.id},-1)">-</button>
+
+                        ${quantity}
+
+                        <button onclick="changeQty(${p.id},1)">+</button>
+
+                    </div>
+
+                    <b>₹${p.price * quantity}</b>
+
+                </div>
+            `;
+
+        }
+
+    });
+
+    document.getElementById("cartTotal").innerText =
+        "Total: ₹" + total;
+
+    document.getElementById("cartModal").style.display = "block";
+
+}
+
+function changeQty(id,change) {
+
+    cart[id] = (cart[id] || 0) + change;
+
+    if(cart[id] <= 0) {
+        delete cart[id];
+    }
+
+    updateCart();
+
+    openCart();
+
+    showProducts();
+}
+
+function openLogin() {
+
+    document.getElementById("loginModal").style.display = "block";
+
+}
+
+function loginCustomer() {
+
+    const name = document.getElementById("customerName").value.trim();
+
+    const phone = document.getElementById("customerPhone").value.trim();
+
+    if(name === "" || !/^[0-9]{10}$/.test(phone)) {
+
+        document.getElementById("loginMessage").innerText =
+            "Please enter your name and valid 10 digit mobile number.";
+
+        return;
+    }
+
+    customer = {name,phone};
+
+    document.getElementById("loginMessage").innerText =
+        "Demo login successful!";
+
+    setTimeout(() => closeModal("loginModal"),1000);
+
+}
+
+function checkout() {
+
+    if(Object.keys(cart).length === 0) {
+        alert("Your cart is empty.");
+        return;
+    }
+
+    closeModal("cartModal");
+
+    if(customer) {
+
+        document.getElementById("deliveryName").value = customer.name;
+
+        document.getElementById("deliveryPhone").value = customer.phone;
+
+    }
+
+    document.getElementById("checkoutModal").style.display = "block";
+
+}
+
+function placeOrder() {
+
+    const name = document.getElementById("deliveryName").value.trim();
+
+    const phone = document.getElementById("deliveryPhone").value.trim();
+
+    const address = document.getElementById("deliveryAddress").value.trim();
+
+    if(name === "" || !/^[0-9]{10}$/.test(phone) || address === "") {
+
+        alert("Please fill all delivery details correctly.");
+
+        return;
+    }
+
+    const orderNumber = "QB" + Date.now().toString().slice(-7);
+
+    alert(
+        "Demo Order Successful!\n\nOrder ID: " + orderNumber +
+        "\nName: " + name +
+        "\nCity: " + document.getElementById("city").value +
+        "\n\nReal order placement will work after backend integration."
+    );
+
+    cart = {};
+
+    updateCart();
+
+    showProducts();
+
+    closeModal("checkoutModal");
+
+}
+
+function closeModal(id) {
+
+    document.getElementById(id).style.display = "none";
+
+}
 
 showProducts();
 
-}
-
-function addCart(index){
-
-cart[index] = (cart[index] || 0) + 1;
-
 updateCart();
 
-showProducts();
-
-}
-
-function changeQty(index,change){
-
-cart[index] = (cart[index] || 0) + change;
-
-if(cart[index] <= 0){
-delete cart[index];
-}
-
-updateCart();
-
-showProducts();
-
-}
-
-function updateCart(){
-
-let count = 0;
-let total = 0;
-let html = "";
-
-Object.keys(cart).forEach(key=>{
-
-let index = Number(key);
-let p = items[index];
-let qty = cart[index];
-
-count += qty;
-total += p.price * qty;
-
-html += `
-<div class="cartrow">
-
-<div>
-${p.emoji} ${p.name}
-<br>
-₹${p.price} × ${qty}
-</div>
-
-<div class="qty">
-
-<button onclick="changeQty(${index},-1)">−</button>
-
-${qty}
-
-<button onclick="changeQty(${index},1)">+</button>
-
-</div>
-
-</div>
-`;
-
-});
-
-document.getElementById("cartCount").innerText = count;
-
-document.getElementById("cartItems").innerHTML =
-html || "<p>Your cart is empty.</p>";
-
-document.getElementById("total").innerText = total;
-
-}
-
-function toggleCart(){
-
-let box = document.getElementById("cartBox");
-
-box.hidden = !box.hidden;
-
-updateCart();
-
-if(!box.hidden){
-box.scrollIntoView({behavior:"smooth"});
-}
-
-}
-
-function placeOrder(){
-
-if(Object.keys(cart).length === 0){
-
-alert("Please add products first!");
-
-return;
-
-}
-
-alert("Demo only: Real order booking will be added after backend setup.");
-
-}
-
-showProducts();
-updateCart();
-showProducts();
-updateCart();
-
-function chooseCity(){
-  let city = document.getElementById("citySelect").value;
-  document.getElementById("selectedCity").innerText =
-  city ? "📍 " + city : "";
-  }
 </script>
 
 </body>
