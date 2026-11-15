@@ -801,7 +801,88 @@ function closeLogin(){
 
 }
 
+/* FIREBASE CUSTOMER REGISTRATION */
 
+async function registerCustomer(){
+
+ const name=document.getElementById("customerName").value.trim();
+ const mobile=document.getElementById("customerMobile").value.trim();
+ const email=document.getElementById("customerEmail").value.trim();
+ const password=document.getElementById("customerPassword").value;
+
+ if(!name || !/^\d{10}$/.test(mobile) || !email || password.length<6){
+  alert("Please enter valid details. Password must be at least 6 characters.");
+  return;
+ }
+
+ try{
+
+  const result=await firebase.auth().createUserWithEmailAndPassword(email,password);
+
+  await result.user.updateProfile({
+   displayName:name
+  });
+
+  customer={
+   name:name,
+   mobile:mobile,
+   email:email,
+   uid:result.user.uid
+  };
+
+  localStorage.setItem("QBCustomer",JSON.stringify(customer));
+
+  alert("Account created successfully!");
+
+  closeLogin();
+
+ }catch(error){
+
+  alert(error.message);
+
+ }
+
+}
+
+
+/* FIREBASE CUSTOMER LOGIN */
+
+async function loginCustomer(){
+
+ const email=document.getElementById("customerEmail").value.trim();
+ const password=document.getElementById("customerPassword").value;
+
+ if(!email || !password){
+  alert("Enter email and password.");
+  return;
+ }
+
+ try{
+
+  const result=await firebase.auth().signInWithEmailAndPassword(email,password);
+
+  const oldCustomer=JSON.parse(localStorage.getItem("QBCustomer")||"{}");
+
+  customer={
+   name:result.user.displayName || email.split("@")[0],
+   mobile:oldCustomer.mobile || "",
+   email:email,
+   uid:result.user.uid
+  };
+
+  localStorage.setItem("QBCustomer",JSON.stringify(customer));
+
+  alert("Welcome "+customer.name+"!");
+
+  closeLogin();
+
+ }catch(error){
+
+  alert(error.message);
+
+ }
+
+   }
 
 
 /* CHECKOUT */
