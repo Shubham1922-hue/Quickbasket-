@@ -313,9 +313,9 @@ footer{
   </div>
 
   <div class="header-buttons">
-   <button onclick="openLogin()">Login</button>
+   <button id="customerAccountBtn" onclick="openLogin()">Login</button>
    <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
-  </div>
+</div>
 
  </div>
 </header>
@@ -800,7 +800,25 @@ function closeLogin(){
  document.getElementById("loginModal").style.display="none";
 
 }
+/* CUSTOMER HEADER NAME */
 
+function updateCustomerHeader(){
+
+ const btn=document.getElementById("customerAccountBtn");
+
+ if(!btn) return;
+
+ if(customer && customer.name){
+
+  btn.innerText="👤 "+customer.name;
+
+ }else{
+
+  btn.innerText="Login";
+
+ }
+
+ }
 /* FIREBASE CUSTOMER REGISTRATION */
 
 async function registerCustomer(){
@@ -831,7 +849,7 @@ async function registerCustomer(){
   };
 
   localStorage.setItem("QBCustomer",JSON.stringify(customer));
-
+updateCustomerHeader();
   alert("Account created successfully!");
 
   closeLogin();
@@ -862,7 +880,7 @@ async function loginCustomer(){
   const result=await firebase.auth().signInWithEmailAndPassword(email,password);
 
   const oldCustomer=JSON.parse(localStorage.getItem("QBCustomer")||"{}");
-
+updateCustomerHeader();
   customer={
    name:result.user.displayName || email.split("@")[0],
    mobile:oldCustomer.mobile || "",
@@ -999,7 +1017,7 @@ renderCategories();
 renderProducts();
 
 renderCart();
-
+updateCustomerHeader();
 </script>
 <script src="https://www.gstatic.com/firebasejs/13.3.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/13.3.0/firebase-auth-compat.js"></script>
