@@ -36,6 +36,8 @@ footer{text-align:center;background:#087f4f;color:white;padding:18px;margin-top:
 </div>
 
 <h2>Shop by Category</h2>
+  <button onclick="filterProducts('bakery')">🥐 Bakery</button>
+<button onclick="filterProducts('dairy')">🥛 Dairy</button>
 <div class="categories">
 <button onclick="filterProducts('all')">All</button>
 <button onclick="filterProducts('grocery')">🛍️ Grocery</button>
@@ -62,6 +64,14 @@ const items=[
 {name:"Tomato",price:30,emoji:"🍅",category:"vegetables"},
 {name:"Potato",price:25,emoji:"🥔",category:"vegetables"}
 ];
+  {name:"Bread",price:40,emoji:"🍞",category:"bakery"},
+{name:"Pav",price:30,emoji:"🥖",category:"bakery"},
+{name:"Cake",price:100,emoji:"🎂",category:"bakery"},
+{name:"Biscuits",price:30,emoji:"🍪",category:"bakery"},
+{name:"Milk",price:30,emoji:"🥛",category:"dairy"},
+{name:"Curd",price:40,emoji:"🥣",category:"dairy"},
+{name:"Paneer",price:90,emoji:"🧀",category:"dairy"},
+{name:"Butter",price:60,emoji:"🧈",category:"dairy"}
 let category="all";
 let cart=[];
 function displayProducts(){
