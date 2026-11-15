@@ -421,8 +421,26 @@ footer{
    maxlength="10"
   >
 
+  <input
+   type="email"
+   id="customerEmail"
+   class="form-input"
+   placeholder="Email Address"
+  >
+
+  <input
+   type="password"
+   id="customerPassword"
+   class="form-input"
+   placeholder="Password (Minimum 6 characters)"
+  >
+
+  <button class="full-btn" onclick="registerCustomer()">
+   Create Account
+  </button>
+
   <button class="full-btn" onclick="loginCustomer()">
-   Continue
+   Login
   </button>
 
  </div>
@@ -783,29 +801,7 @@ function closeLogin(){
 
 }
 
-function loginCustomer(){
 
- const name=document.getElementById("customerName").value.trim();
-
- const mobile=document.getElementById("customerMobile").value.trim();
-
- if(!name||mobile.length!==10||!/^\d{10}$/.test(mobile)){
-
-  alert("Please enter your name and valid 10 digit mobile number.");
-
-  return;
-
- }
-
- customer={name,mobile};
-
- localStorage.setItem("QBCustomer",JSON.stringify(customer));
-
- alert("Welcome "+name+"!");
-
- closeLogin();
-
-}
 
 
 /* CHECKOUT */
