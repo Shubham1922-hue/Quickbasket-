@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+8ß<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -185,6 +185,17 @@ footer {
 <header>
 <h1>🛒 QuickBasket</h1>
 <p>Your Local Market, Now Online!</p>
+
+<select id="citySelect" onchange="chooseCity()">
+<option value="">Select Your City</option>
+<option value="Miraj">Miraj</option>
+<option value="Sangli">Sangli</option>
+<option value="Kolhapur">Kolhapur</option>
+<option value="Pune">Pune</option>
+<option value="Mumbai">Mumbai</option>
+</select>
+
+<p id="selectedCity"></p>
 </header>
 
 <div class="top">
@@ -435,7 +446,14 @@ alert("Demo only: Real order booking will be added after backend setup.");
 
 showProducts();
 updateCart();
+showProducts();
+updateCart();
 
+function chooseCity(){
+  let city = document.getElementById("citySelect").value;
+  document.getElementById("selectedCity").innerText =
+  city ? "📍 " + city : "";
+  }
 </script>
 
 </body>
