@@ -737,6 +737,76 @@ function showMerchantPanel() {
         showMerchantProducts();
     }
 }
+    let merchantProducts = JSON.parse(
+    localStorage.getItem("QBMerchantProducts") || "[]"
+);
+
+function registerShop() {
+    let shop = document.getElementById("shopName").value;
+    let owner = document.getElementById("ownerName").value;
+    let phone = document.getElementById("shopPhone").value;
+    let address = document.getElementById("shopAddress").value;
+
+    if (!shop || !owner || !/^[0-9]{10}$/.test(phone) || !address) {
+        alert("Please fill all details correctly");
+        return;
+    }
+
+    localStorage.setItem("QBShop", JSON.stringify({
+        shop, owner, phone, address
+    }));
+
+    alert("Shop Registered Successfully!");
+}
+
+function addMerchantProduct() {
+    let name = document.getElementById("productName").value;
+    let price = Number(document.getElementById("productPrice").value);
+    let category = document.getElementById("productCategory").value;
+    let stock = Number(document.getElementById("productStock").value);
+
+    if (!name || price <= 0 || stock < 0 ||
+        document.getElementById("productPrice").value === "" ||
+        document.getElementById("productStock").value === "") {
+        alert("Enter valid product details");
+        return;
+    }
+
+    merchantProducts.push({name, price, category, stock});
+
+    localStorage.setItem(
+        "QBMerchantProducts",
+        JSON.stringify(merchantProducts)
+    );
+
+    showMerchantProducts();
+    alert("Product Added Successfully!");
+}
+
+function showMerchantProducts() {
+    let box = document.getElementById("merchantProducts");
+    box.innerHTML = "";
+
+    merchantProducts.forEach((p, i) => {
+        box.innerHTML += `
+            <div style="background:white;padding:12px;margin:10px;">
+                <b>${p.name}</b><br>
+                Category: ${p.category}<br>
+                Price: ₹${p.price}<br>
+                Stock: ${p.stock}<br>
+                <button onclick="deleteMerchantProduct(${i})">Delete</button>
+            </div>`;
+    });
+}
+
+function deleteMerchantProduct(index) {
+    merchantProducts.splice(index, 1);
+    localStorage.setItem(
+        "QBMerchantProducts",
+        JSON.stringify(merchantProducts)
+    );
+    showMerchantProducts();
+}
 </script>
 
 </body>
