@@ -734,6 +734,23 @@ renderProducts();
 renderCart();
 
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDwKRpBbQVSt8CZ4MoyZfcfPquTiYVbu8M",
+  authDomain: "quickbasket-cb79e.firebaseapp.com",
+  projectId: "quickbasket-cb79e",
+  storageBucket: "quickbasket-cb79e.firebasestorage.app",
+  messagingSenderId: "1072999983840",
+  appId: "1:1072999983840:web:e66754d5b888aea97ebe85"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+console.log("QuickBasket Firebase Connected!");
+</script>
 </body>
 </html>
