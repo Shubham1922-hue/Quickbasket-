@@ -289,6 +289,7 @@ footer p {
     <div class="header-buttons">
         <button onclick="openLogin()">Login</button>
         <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
+        <button onclick="showMerchantPanel()">🏪 Merchant</button>
     </div>
 </header>
 <!-- MERCHANT DASHBOARD -->
@@ -727,7 +728,15 @@ function closeModal(id) {
 showProducts();
 
 updateCart();
+function showMerchantPanel() {
+    const panel = document.getElementById("merchantPanel");
 
+    if (panel) {
+        panel.style.display = "block";
+        panel.scrollIntoView({ behavior: "smooth" });
+        showMerchantProducts();
+    }
+}
 </script>
 
 </body>
