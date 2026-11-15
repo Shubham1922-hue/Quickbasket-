@@ -4,7 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QuickBasket - Delivery Partner</title>
-
+.brand-header{
+ background:linear-gradient(135deg,#064e35,#079653);
+ padding:25px 15px;
+ text-align:center;
+ color:white;
+ border-radius:0 0 25px 25px;
+ box-shadow:0 5px 15px #0002;
+}
+.brand-logo{
+ font-size:35px;
+ background:white;
+ width:65px;
+ height:65px;
+ border-radius:20px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ margin:0 auto 8px;
+}
+.brand-name h1{
+ font-size:32px;
+ margin:5px 0;
+ font-weight:900;
+ letter-spacing:-1px;
+}
+.brand-name h1 span{
+ color:#b8ffcf;
+}
+.brand-name p{
+ margin:5px 0 12px;
+ font-size:12px;
+}
+.dashboard-label{
+ font-size:11px;
+ letter-spacing:2px;
+ font-weight:bold;
+ background:#ffffff25;
+ display:inline-block;
+ padding:7px 15px;
+ border-radius:20px;
+}
 <style>
 *{box-sizing:border-box}
 body{
@@ -103,9 +143,13 @@ footer{
 
 <body>
 
-<header>
- <h2>🛵 QuickBasket</h2>
- <p>Delivery Partner Dashboard</p>
+<header class="brand-header">
+ <div class="brand-logo">🛒</div>
+ <div class="brand-name">
+  <h1>Quick<span>Basket</span></h1>
+  <p>Your Local Market, Now Online!</p>
+ </div>
+ <div class="dashboard-label">DELIVERY PARTNER</div>
 </header>
 
 <div class="container">
