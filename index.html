@@ -313,8 +313,13 @@ footer{
   </div>
 
   <div class="header-buttons">
+
    <button id="customerAccountBtn" onclick="openLogin()">Login</button>
+
+   <button onclick="openMyOrders()">📦 My Orders</button>
+
    <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
+
 </div>
 
  </div>
@@ -445,7 +450,20 @@ footer{
 
  </div>
 </div>
+<!-- MY ORDERS MODAL -->
 
+<div class="modal" id="myOrdersModal">
+ <div class="modal-content">
+
+  <div class="modal-header">
+   <h2>📦 My Orders</h2>
+   <button class="close" onclick="closeMyOrders()">✕</button>
+  </div>
+
+  <div id="myOrdersList"></div>
+
+ </div>
+</div>
 <!-- CHECKOUT MODAL -->
 
 <div class="modal" id="checkoutModal">
@@ -794,7 +812,43 @@ function openLogin(){
  document.getElementById("loginModal").style.display="block";
 
 }
+function openMyOrders(){
+  if(!customer){
+    alert("Please login first!");
+    openLogin();
+    return;
+  }
 
+  document.getElementById("myOrdersModal").style.display="block";
+
+  let orders=JSON.parse(localStorage.getItem("QBCustomerOrders")||"[]");
+
+  let myOrders=orders.filter(order =>
+    order.mobile===customer.mobile ||
+    (order.customerUid && order.customerUid===customer.uid)
+  );
+
+  let box=document.getElementById("myOrdersList");
+
+  if(myOrders.length===0){
+    box.innerHTML="<p style='padding:15px;'>No orders found.</p>";
+    return;
+  }
+
+  box.innerHTML=myOrders.reverse().map(order=>`
+    <div style="border:1px solid #ddd;padding:15px;margin:12px 0;border-radius:10px;">
+      <h3 style="color:#087c45;">Order ID: ${order.id}</h3>
+      <p><b>Date:</b> ${order.date}</p>
+      <p><b>Status:</b> ${order.status}</p>
+      <p><b>Total:</b> ₹${order.total}</p>
+      <p><b>Delivery Address:</b> ${order.address}</p>
+    </div>
+  `).join("");
+}
+
+function closeMyOrders(){
+  document.getElementById("myOrdersModal").style.display="none";
+ }
 function closeLogin(){
 
  document.getElementById("loginModal").style.display="none";
