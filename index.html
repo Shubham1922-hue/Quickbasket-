@@ -541,13 +541,52 @@ function filterCategory(category,element){
 
 }
 
-function saveCart(){
+function renderProducts(){
 
- localStorage.setItem("QBCustomerCart",JSON.stringify(cart));
+ const search=document.getElementById("search").value.toLowerCase();
 
- renderCart();
+ const filtered=products.filter(p=>
+  (selectedCategory==="All"||p.category===selectedCategory)&&
+  p.name.toLowerCase().includes(search)
+ );
 
-}
+ const list=document.getElementById("productList");
+
+ if(!filtered.length){
+  list.innerHTML='<p class="empty">No products found.</p>';
+  return;
+ }
+
+ list.innerHTML=filtered.map(p=>{
+
+  const item=cart.find(c=>c.id===p.id);
+  const qty=item ? item.qty : 0;
+
+  return `
+   <div class="product">
+    <div class="product-image">${p.emoji}</div>
+    <h4>${p.name}</h4>
+    <p>${p.category} • ${p.unit}</p>
+    <div class="price">₹${p.price}</div>
+
+    ${
+     qty===0
+     ? `<button class="primary" onclick="addToCart(${p.id})">+ Add to Cart</button>`
+     : `
+       <div style="display:flex;align-items:center;justify-content:space-between;background:#e8f7ee;padding:8px;border-radius:8px;">
+        <button onclick="changeQty(${p.id},-1)" style="background:#087c45;color:white;">−</button>
+        <b style="font-size:18px;color:#087c45;">${qty}</b>
+        <button onclick="changeQty(${p.id},1)" style="background:#087c45;color:white;">+</button>
+       </div>
+     `
+    }
+
+   </div>
+  `;
+
+ }).join("");
+
+ }
 
 function addToCart(id){
 
